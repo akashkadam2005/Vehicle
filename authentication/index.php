@@ -98,18 +98,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             overflow: hidden;
         }
 
-        /* Moving Background Animation */
-        @keyframes moveBackground {
-            0% { background-position: 0 0; }
-            50% { background-position: 100% 100%; }
-            100% { background-position: 0 0; }
-        }
+        /* Moving Background Animation */ 
 
         .login-container {
-            background-color: rgba(0, 0, 0, 0.6); /* Dark transparent background */
+            background-color: rgba(6, 1, 1, 0.6); /* Dark transparent background */
             width: 450px;
             padding: 3rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgb(255, 255, 255);
             border-radius: 10px;
             color: white;
             z-index: 1;
@@ -119,6 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         /* Apply the moving background */
         .moving-background {
+            
             position: absolute;
             top: 0;
             left: 0;
@@ -126,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             height: 100%;
             background-image: url('cart-transformed.jpg'); /* Replace with your image path */
             background-size: cover;
-            background-position: 0 0;
+            background-position: 0 0; 
             animation: moveBackground 30s linear infinite;
             z-index: -1;
         }
