@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $category_id = $data['category_id'] ?? null;
 
     if (!$service_name || !$service_price || !$category_id) {
-        echo json_encode(["status" => "error", "message" => "Product name, price, and category are required"]);
+        echo json_encode(["status" => "error", "message" => "Service name, price, and category are required"]);
         exit;
     }
 
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        echo json_encode(["status" => "success", "message" => "Product created successfully"]);
+        echo json_encode(["status" => "success", "message" => "Service created successfully"]);
     } else {
         echo json_encode(["status" => "error", "message" => "Failed to create product"]);
     }

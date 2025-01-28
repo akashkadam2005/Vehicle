@@ -63,7 +63,7 @@ if (isset($_POST["service_update"])) {
         WHERE service_id = $service_id";
 
     if (mysqli_query($conn, $updateQuery)) {
-        $_SESSION["success"] = "Product Updated Successfully!";
+        $_SESSION["success"] = "Service Updated Successfully!";
         echo "<script>window.location = 'index.php';</script>";
     } else {
         $_SESSION["error"] = "Error updating product: " . mysqli_error($conn);
@@ -76,17 +76,17 @@ if (isset($_POST["service_update"])) {
         <div class="card">
             <div class="card-header">
                 <div class="d-flex p-2 justify-content-between">
-                    <div class="h5 font-weight-bold">Edit Product</div>
+                    <div class="h5 font-weight-bold">Edit Service</div>
                     <a href="index.php" class="btn btn-info shadow font-weight-bold">
-                        <i class="fa fa-eye"></i>&nbsp; Product List
+                        <i class="fa fa-eye"></i>&nbsp; Service List
                     </a>
                 </div>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
-                        <label for="service_name">Product Name <span class="text-danger">*</span></label>
-                        <input type="text" value="<?= $product['service_name'] ?>" placeholder="Product Name" class="form-control font-weight-bold" name="service_name" id="service_name" required>
+                        <label for="service_name">Service Name <span class="text-danger">*</span></label>
+                        <input type="text" value="<?= $product['service_name'] ?>" placeholder="Service Name" class="form-control font-weight-bold" name="service_name" id="service_name" required>
                     </div>
                     <div class="col-4">
                         <label for="category_id">Category <span class="text-danger">*</span></label>
@@ -111,11 +111,11 @@ if (isset($_POST["service_update"])) {
                         </select>
                     </div>
                     <div class="col-3 mt-3">
-                        <label for="service_price">Product Price <span class="text-danger">*</span></label>
-                        <input type="number" step="0.01" value="<?= $product['service_price'] ?>" placeholder="Product Price" class="form-control font-weight-bold" name="service_price" id="service_price" required oninput="calculateDiscountValue()">
+                        <label for="service_price">Service Price <span class="text-danger">*</span></label>
+                        <input type="number" step="0.01" value="<?= $product['service_price'] ?>" placeholder="Service Price" class="form-control font-weight-bold" name="service_price" id="service_price" required oninput="calculateDiscountValue()">
                     </div>
                     <div class="col-3 mt-3">
-                        <label for="service_dis">Product Discount (%)</label>
+                        <label for="service_dis">Service Discount (%)</label>
                         <input type="number" value="<?= $product['service_dis'] ?>" placeholder="Discount Percentage" class="form-control font-weight-bold" name="service_dis" id="service_dis" oninput="calculateDiscountValue()">
                     </div>
                     <div class="col-3 mt-3">
@@ -123,14 +123,14 @@ if (isset($_POST["service_update"])) {
                         <input type="number" step="0.01" value="<?= $product['service_dis_value'] ?>" placeholder="Discount Value" class="form-control font-weight-bold" name="service_dis_value" id="service_dis_value" readonly>
                     </div>
                     <div class="col-3 mt-3">
-                        <label for="service_image">Product Image</label>
+                        <label for="service_image">Service Image</label>
                         <input type="file" class="form-control font-weight-bold" name="service_image" id="service_image" accept="image/*">
                         <?php if (!empty($product['service_image'])): ?>
-                            <img src="../uploads/services/<?= $product['service_image'] ?>" alt="Product Image" width="100" class="mt-2">
+                            <img src="../uploads/services/<?= $product['service_image'] ?>" alt="Service Image" width="100" class="mt-2">
                         <?php endif; ?>
                     </div>
                     <div class="col-12 mt-3">
-                        <label for="service_description">Product Description</label>
+                        <label for="service_description">Service Description</label>
                         <textarea rows="10" name="service_description" id="service_description" class="form-control font-weight-bold" placeholder="Enter product description"><?= $product['service_description'] ?></textarea>
                     </div>
                 </div>
@@ -138,7 +138,7 @@ if (isset($_POST["service_update"])) {
             <div class="card-footer">
                 <div class="d-flex justify-content-end">
                     <button name="service_update" type="submit" class="btn btn-primary shadow font-weight-bold">
-                        <i class="fa fa-save"></i>&nbsp; Update Product
+                        <i class="fa fa-save"></i>&nbsp; Update Service
                     </button>
                     &nbsp;
                     <button type="reset" class="btn btn-danger shadow font-weight-bold">

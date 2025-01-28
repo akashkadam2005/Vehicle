@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $service_id = $data['service_id'] ?? null;
 
     if (!$service_id) {
-        echo json_encode(["status" => "error", "message" => "Product ID is required"]);
+        echo json_encode(["status" => "error", "message" => "Service ID is required"]);
         exit;
     }
 
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        echo json_encode(["status" => "success", "message" => "Product deleted successfully"]);
+        echo json_encode(["status" => "success", "message" => "Service deleted successfully"]);
     } else {
         echo json_encode(["status" => "error", "message" => "Failed to delete product"]);
     }

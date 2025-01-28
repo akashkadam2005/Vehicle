@@ -8,13 +8,13 @@ include "../component/sidebar.php";
     <div class="card">
         <div class="card-header">
             <div class="text-center p-3">
-                <h3 class="font-weight-bold">Product Management</h3>
+                <h3 class="font-weight-bold">Service Management</h3>
             </div>
             <form action="">
                 <div class="row justify-content-end">
                     <div class="col-2 font-weight-bold">
-                        Product Name
-                        <input type="search" name="service_name" value="<?= isset($_GET["service_name"]) ? $_GET["service_name"] : "" ?>" class="form-control font-weight-bold" placeholder="Product Name">
+                        Service Name
+                        <input type="search" name="service_name" value="<?= isset($_GET["service_name"]) ? $_GET["service_name"] : "" ?>" class="form-control font-weight-bold" placeholder="Service Name">
                     </div>
                     <div class="col-1 font-weight-bold">
                         <br>
@@ -22,7 +22,7 @@ include "../component/sidebar.php";
                     </div>
                     <div class="col-2 font-weight-bold">
                         <br>
-                        <a href="create.php" class="font-weight-bold w-100 shadow btn btn-success"> <i class="fas fa-plus"></i>&nbsp; Add Product</a>
+                        <a href="create.php" class="font-weight-bold w-100 shadow btn btn-success"> <i class="fas fa-plus"></i>&nbsp; Add Service</a>
                     </div>
                 </div>
             </form>
@@ -46,8 +46,8 @@ include "../component/sidebar.php";
                 <table class="table">
                     <tr>
                         <th>#</th>
-                        <th>Product Image</th>
-                        <th>Product Name</th>
+                        <th>Service Image</th>
+                        <th>Service Name</th>
                         <th>Category</th>
                         <th>Price</th>
                         <th>Food Type</th> 
@@ -82,7 +82,7 @@ include "../component/sidebar.php";
                     ?>
                         <tr>
                             <td><?= ++$count ?></td>
-                            <td><img src="../uploads/services/<?= $data['service_image'] == null ? "no_img.png" : $data['service_image'] ?>" width="100" height="100" alt="Product Image"></td>
+                            <td><img src="../uploads/services/<?= $data['service_image'] == null ? "no_img.png" : $data['service_image'] ?>" width="100" height="100" alt="Service Image"></td>
 
                             <td><?= $data["service_name"] ?></td>
                             <td><?= $data["category_name"] ?></td> <!-- Category Name from the JOIN -->
@@ -108,7 +108,7 @@ include "../component/sidebar.php";
                     ?>
                         <tr>
                             <td colspan="9" class="font-weight-bold text-center">
-                                <span class="text-danger">No Product Found.</span>
+                                <span class="text-danger">No Service Found.</span>
                             </td>
                         </tr>
                     <?php

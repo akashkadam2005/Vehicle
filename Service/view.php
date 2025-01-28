@@ -14,7 +14,7 @@ $productResult = mysqli_query($conn, $productQuery);
 $product = mysqli_fetch_assoc($productResult);
 
 if (!$product) {
-    $_SESSION["error"] = "Product not found!";
+    $_SESSION["error"] = "Service not found!";
     echo "<script>window.location = 'index.php';</script>";
     exit();
 }
@@ -24,7 +24,7 @@ if (!$product) {
     <div class="card shadow-lg">
         <div class="card-header bg-light text-white">
             <div class="d-flex justify-content-between align-items-center">
-                <h5 class="font-weight-bold mb-0">Product Details</h5>
+                <h5 class="font-weight-bold mb-0">Service Details</h5>
                 <a href="index.php" class="btn btn-light font-weight-bold">
                     <i class="fa fa-arrow-left"></i>&nbsp; Back to services
                 </a>
@@ -32,22 +32,22 @@ if (!$product) {
         </div>
         <div class="card-body">
             <div class="row">
-                <!-- Product Image and Details -->
+                <!-- Service Image and Details -->
                 <div class="col-lg-4 text-center">
                     <?php if ($product['service_image']) { ?>
-                        <img src="../uploads/services/<?= htmlspecialchars($product['service_image']) ?>" class="img-fluid rounded mb-3" alt="Product Image">
+                        <img src="../uploads/services/<?= htmlspecialchars($product['service_image']) ?>" class="img-fluid rounded mb-3" alt="Service Image">
                     <?php } else { ?>
                         <img src="../uploads/services/no_img.png" class="img-fluid rounded mb-3" alt="No Image Available">
                     <?php } ?>
                   </div>
 
-                <!-- Product Information -->
+                <!-- Service Information -->
                 <div class="col-lg-8">
                     <div class="table-responsive">
                         <table class="table table-borderless">
                             <tbody>
                                 <tr>
-                                    <td class="font-weight-bold">Product Name:</td>
+                                    <td class="font-weight-bold">Service Name:</td>
                                     <td><?= htmlspecialchars($product['service_name']) ?></td>
                                 </tr>
                                 <tr>
@@ -94,7 +94,7 @@ if (!$product) {
 
         <div class="card-footer text-right">
             <a href="edit.php?service_id=<?= $product['service_id'] ?>" class="btn btn-outline-primary font-weight-bold">
-                <i class="fa fa-edit"></i>&nbsp; Edit Product
+                <i class="fa fa-edit"></i>&nbsp; Edit Service
             </a>
         </div>
     </div>

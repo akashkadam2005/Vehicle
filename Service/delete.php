@@ -10,7 +10,7 @@ $stmt = $conn->prepare("DELETE FROM `tbl_services` WHERE `service_id` = ?");
 $stmt->bind_param("i", $service_id);
 
 if ($stmt->execute()) {
-    $_SESSION["success"] = "Product deleted successfully!";
+    $_SESSION["success"] = "Service deleted successfully!";
     echo "<script>window.location = 'index.php';</script>";
 } else {
     $_SESSION["error"] = "Error deleting product: " . $stmt->error;

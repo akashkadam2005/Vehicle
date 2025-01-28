@@ -10,7 +10,7 @@ $customer_query = "SELECT COUNT(*) AS customer_count FROM tbl_customer";
 $customer_result = mysqli_query($conn, $customer_query);
 $customer_count = mysqli_fetch_assoc($customer_result)['customer_count'];
 
-// Count Products
+// Count Services
 $product_query = "SELECT COUNT(*) AS product_count FROM tbl_services";
 $product_result = mysqli_query($conn, $product_query);
 // $product_count = mysqli_fetch_assoc($product_result)['product_count'];

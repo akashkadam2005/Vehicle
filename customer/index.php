@@ -83,7 +83,7 @@ include "../component/sidebar.php";
                     ?>
                         <tr>
                             <td><?= ++$count ?></td>
-                            <td><img src="../uploads/customers/<?= $data['customer_image'] == null ? "no_img.png" : $data['customer_image'] ?>" width="100" height="100" alt="Product Image"></td>
+                            <td><img src="../uploads/customers/<?= $data['customer_image'] == null ? "no_img.png" : $data['customer_image'] ?>" width="100" height="100" alt="Service Image"></td>
                             <td><?= $data["customer_name"] ?></td>
                             <td><?= $data["customer_email"] ?></td>
                             <td><?= $data["customer_phone"] ?></td>

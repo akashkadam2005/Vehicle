@@ -5,7 +5,7 @@ include "../config/connection.php";
 $category_id = $_GET["category_id"];
 
 // Check if the category is in use
-$productCheckQuery = "SELECT COUNT(*) AS product_count FROM `tbl_product` WHERE `category_id` = '$category_id'";
+$productCheckQuery = "SELECT COUNT(*) AS product_count FROM `tbl_services` WHERE `category_id` = '$category_id'";
 $productCheckResult = mysqli_query($conn, $productCheckQuery);
 $productData = mysqli_fetch_assoc($productCheckResult);
 

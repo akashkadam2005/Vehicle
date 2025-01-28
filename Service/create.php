@@ -50,7 +50,7 @@ if (isset($_POST["service_create"])) {
         $insertQuery = "INSERT INTO tbl_services (service_name, service_description, service_price, category_id, service_image, service_dis, service_dis_value, service_status) 
                         VALUES ('$service_name', '$service_description', '$service_price', '$category_id', '$image_path', '$service_dis', '$service_dis_value', '$service_status')";
         if (mysqli_query($conn, $insertQuery)) {
-            $_SESSION["success"] = "Product Created Successfully!";
+            $_SESSION["success"] = "Service Created Successfully!";
             echo "<script>window.location = 'index.php';</script>";
         } else {
             $_SESSION["error"] = "Error creating product: " . mysqli_error($conn);
@@ -64,17 +64,17 @@ if (isset($_POST["service_create"])) {
         <div class="card">
             <div class="card-header">
                 <div class="d-flex p-2 justify-content-between">
-                    <div class="h5 font-weight-bold">Create Product</div>
+                    <div class="h5 font-weight-bold">Create Service</div>
                     <a href="index.php" class="btn btn-info shadow font-weight-bold">
-                        <i class="fa fa-eye"></i>&nbsp; Product List
+                        <i class="fa fa-eye"></i>&nbsp; Service List
                     </a>
                 </div>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
-                        <label for="service_name">Product Name <span class="text-danger">*</span></label>
-                        <input type="text" placeholder="Product Name" class="form-control font-weight-bold" name="service_name" id="service_name" required>
+                        <label for="service_name">Service Name <span class="text-danger">*</span></label>
+                        <input type="text" placeholder="Service Name" class="form-control font-weight-bold" name="service_name" id="service_name" required>
                     </div>
                     <div class="col-4">
                         <label for="category_id">Category <span class="text-danger">*</span></label>
@@ -98,11 +98,11 @@ if (isset($_POST["service_create"])) {
                         </select>
                     </div>
                     <div class="col-3 mt-3">
-                        <label for="service_price">Product Price <span class="text-danger">*</span></label>
-                        <input type="number" step="0.01" placeholder="Product Price" class="form-control font-weight-bold" name="service_price" id="service_price" required oninput="calculateDiscountValue()">
+                        <label for="service_price">Service Price <span class="text-danger">*</span></label>
+                        <input type="number" step="0.01" placeholder="Service Price" class="form-control font-weight-bold" name="service_price" id="service_price" required oninput="calculateDiscountValue()">
                     </div>
                     <div class="col-3 mt-3">
-                        <label for="service_dis">Product Discount (%)</label>
+                        <label for="service_dis">Service Discount (%)</label>
                         <input type="number" placeholder="Discount Percentage" class="form-control font-weight-bold" name="service_dis" id="service_dis" oninput="calculateDiscountValue()">
                     </div>
                     <div class="col-3 mt-3">
@@ -111,11 +111,11 @@ if (isset($_POST["service_create"])) {
                     </div>
                   
                     <div class="col-3 mt-3">
-                        <label for="service_image">Product Image</label>
+                        <label for="service_image">Service Image</label>
                         <input type="file" class="form-control font-weight-bold" name="service_image" id="service_image" accept="image/*">
                     </div>
                     <div class="col-12 mt-3">
-                        <label for="service_description">Product Description</label>
+                        <label for="service_description">Service Description</label>
                         <textarea rows="10" name="service_description" id="service_description" rows="3" class="form-control font-weight-bold" placeholder="Enter product description"></textarea>
                     </div>
                 </div>
@@ -123,7 +123,7 @@ if (isset($_POST["service_create"])) {
             <div class="card-footer">
                 <div class="d-flex justify-content-end">
                     <button name="service_create" type="submit" class="btn btn-primary shadow font-weight-bold">
-                        <i class="fa fa-save"></i>&nbsp; Create Product
+                        <i class="fa fa-save"></i>&nbsp; Create Service
                     </button>
                     &nbsp;
                     <button type="reset" class="btn btn-danger shadow font-weight-bold">

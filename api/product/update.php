@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $category_id = $data['category_id'] ?? null;
 
     if (!$service_id || !$service_name || !$service_price || !$category_id) {
-        echo json_encode(["status" => "error", "message" => "Product ID, name, price, and category are required"]);
+        echo json_encode(["status" => "error", "message" => "Service ID, name, price, and category are required"]);
         exit;
     }
 
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        echo json_encode(["status" => "success", "message" => "Product updated successfully"]);
+        echo json_encode(["status" => "success", "message" => "Service updated successfully"]);
     } else {
         echo json_encode(["status" => "error", "message" => "Failed to update product"]);
     }
