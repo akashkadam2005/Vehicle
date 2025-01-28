@@ -103,11 +103,11 @@ if (isset($_POST["service_update"])) {
                         </select>
                     </div>
                     <div class="col-2">
-                        <label for="service_status">Food Type <span class="text-danger">*</span></label>
+                        <label for="service_status">Visibillity<span class="text-danger">*</span></label>
                         <select name="service_status" id="service_status" class="form-control font-weight-bold" required>
-                            <option value="">Select Food Type</option>
-                            <option value="1" <?= $product['service_status'] == 1 ? "selected" : "" ?>>Veg</option>
-                            <option value="2" <?= $product['service_status'] == 2 ? "selected" : "" ?>>Non-Veg</option>
+                            <option value="">Select Visibility</option>
+                            <option value="1" <?= $product['service_status'] == 1 ? "selected" : "" ?>>Public</option>
+                            <option value="2" <?= $product['service_status'] == 2 ? "selected" : "" ?>>Hidden</option>
                         </select>
                     </div>
                     <div class="col-3 mt-3">

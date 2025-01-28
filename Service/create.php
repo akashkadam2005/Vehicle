@@ -90,11 +90,11 @@ if (isset($_POST["service_create"])) {
                         </select>
                     </div>
                     <div class="col-2  ">
-                        <label for="service_status">Food Type <span class="text-danger">*</span></label>
+                        <label for="service_status">Visibillity<span class="text-danger">*</span></label>
                         <select name="service_status" id="service_status" class="form-control font-weight-bold" required>
-                            <option value="">Select Food Type</option>
-                            <option value="1">Veg</option>
-                            <option value="2">Non-Veg</option>
+                            <option value="">Select Visibility</option>
+                            <option value="1">Public</option>
+                            <option value="2">Hidden</option>
                         </select>
                     </div>
                     <div class="col-3 mt-3">
