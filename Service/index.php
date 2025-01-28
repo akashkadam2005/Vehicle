@@ -82,7 +82,7 @@ include "../component/sidebar.php";
                     ?>
                         <tr>
                             <td><?= ++$count ?></td>
-                            <td><img src="../uploads/products/<?= $data['service_image'] == null ? "no_img.png" : $data['service_image'] ?>" width="100" height="100" alt="Product Image"></td>
+                            <td><img src="../uploads/services/<?= $data['service_image'] == null ? "no_img.png" : $data['service_image'] ?>" width="100" height="100" alt="Product Image"></td>
 
                             <td><?= $data["service_name"] ?></td>
                             <td><?= $data["category_name"] ?></td> <!-- Category Name from the JOIN -->

@@ -26,7 +26,7 @@ if (isset($_POST["service_update"])) {
     
     // Handle image upload if a new image is uploaded
     if (!empty($service_image)) {
-        $target_dir = "../uploads/products/";
+        $target_dir = "../uploads/services/";
         $target_file = $target_dir . basename($service_image);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         $check = getimagesize($service_image_temp);
@@ -126,7 +126,7 @@ if (isset($_POST["service_update"])) {
                         <label for="service_image">Product Image</label>
                         <input type="file" class="form-control font-weight-bold" name="service_image" id="service_image" accept="image/*">
                         <?php if (!empty($product['service_image'])): ?>
-                            <img src="../uploads/products/<?= $product['service_image'] ?>" alt="Product Image" width="100" class="mt-2">
+                            <img src="../uploads/services/<?= $product['service_image'] ?>" alt="Product Image" width="100" class="mt-2">
                         <?php endif; ?>
                     </div>
                     <div class="col-12 mt-3">

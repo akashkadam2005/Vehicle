@@ -43,15 +43,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $result = $conn->query($sql);
 
     if ($result) {
-        $products = [];
+        $services = [];
         while ($row = $result->fetch_assoc()) {
             // Parse the concatenated customer ratings into an array
             $row['customer_ratings'] = $row['customer_ratings'] ? json_decode("[" . $row['customer_ratings'] . "]", true) : [];
-            $products[] = $row;
+            $services[] = $row;
         }
-        echo json_encode(["status" => "success", "data" => $products]);
+        echo json_encode(["status" => "success", "data" => $services]);
     } else {
-        echo json_encode(["status" => "error", "message" => "Failed to fetch products. Error: " . $conn->error]);
+        echo json_encode(["status" => "error", "message" => "Failed to fetch services. Error: " . $conn->error]);
     }
 } else {
     echo json_encode(["status" => "error", "message" => "Invalid request method"]);

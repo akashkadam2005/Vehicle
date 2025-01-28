@@ -22,7 +22,7 @@ if (isset($_POST["service_create"])) {
     } else {
         // Handle image upload if a file is uploaded
         if (!empty($service_image)) {
-            $target_dir = "../uploads/products/";
+            $target_dir = "../uploads/services/";
             $target_file = $target_dir . basename($service_image);
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
             $check = getimagesize($service_image_temp);
