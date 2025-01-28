@@ -4,12 +4,12 @@ include "../component/header.php";
 include "../component/sidebar.php";
 
 // Get the product ID from the URL
-$product_id = $_GET['product_id'];
+$service_id = $_GET['service_id'];
 
 // Fetch product details
 $productQuery = "SELECT p.*, c.category_name FROM tbl_product p
                  LEFT JOIN tbl_category c ON p.category_id = c.category_id
-                 WHERE p.product_id = $product_id";
+                 WHERE p.service_id = $service_id";
 $productResult = mysqli_query($conn, $productQuery);
 $product = mysqli_fetch_assoc($productResult);
 
@@ -34,8 +34,8 @@ if (!$product) {
             <div class="row">
                 <!-- Product Image and Details -->
                 <div class="col-lg-4 text-center">
-                    <?php if ($product['product_image']) { ?>
-                        <img src="../uploads/products/<?= htmlspecialchars($product['product_image']) ?>" class="img-fluid rounded mb-3" alt="Product Image">
+                    <?php if ($product['service_image']) { ?>
+                        <img src="../uploads/products/<?= htmlspecialchars($product['service_image']) ?>" class="img-fluid rounded mb-3" alt="Product Image">
                     <?php } else { ?>
                         <img src="../uploads/products/no_img.png" class="img-fluid rounded mb-3" alt="No Image Available">
                     <?php } ?>
@@ -48,37 +48,37 @@ if (!$product) {
                             <tbody>
                                 <tr>
                                     <td class="font-weight-bold">Product Name:</td>
-                                    <td><?= htmlspecialchars($product['product_name']) ?></td>
+                                    <td><?= htmlspecialchars($product['service_name']) ?></td>
                                 </tr>
                                 <tr>
                                     <td class="font-weight-bold">Category:</td>
                                     <td><?= htmlspecialchars($product['category_name']) ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-bold">Stock:</td>
-                                    <td><?= htmlspecialchars($product['product_stock']) ?> units</td>
-                                </tr>
+                                </tr> 
                                 <tr>
                                     <td class="font-weight-bold">Price:</td>
-                                    <td>₹ <?= htmlspecialchars($product['product_price']) ?></td>
+                                    <td>₹ <?= htmlspecialchars($product['service_price']) ?></td>
                                 </tr>
                                 <tr>
                                     <td class="font-weight-bold">Discount:</td>
-                                    <td><?= htmlspecialchars($product['product_dis']) ?>  %  </td>
+                                    <td><?= htmlspecialchars($product['service_dis']) ?>  %  </td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Discount Price:</td>
+                                    <td>₹ <?= htmlspecialchars($product['service_dis_value']) ?>   </td>
                                 </tr>
                                 <tr>
                                     <td class="font-weight-bold">Final Price:</td>
-                                    <td>₹ <?= htmlspecialchars($product['product_price']-$product['product_dis_value']) ?>  </td>
+                                    <td>₹ <?= htmlspecialchars($product['service_price']-$product['service_dis_value']) ?>  </td>
                                 </tr>
                                 <tr>
                                     <td class="font-weight-bold">Description:</td>
-                                    <td><?= nl2br(htmlspecialchars($product['product_description'])) ?></td>
+                                    <td><?= nl2br(htmlspecialchars($product['service_description'])) ?></td>
                                 </tr>
                                 <tr> 
-                                    <td class="font-weight-bold">Status:</td>
+                                    <td class="font-weight-bold">Food Type</td>
                                     <td>
-                                        <span class="badge <?= $product['product_status'] ? 'badge-success' : 'badge-danger' ?>">
-                                            <?= $product['product_status'] ? 'Active' : 'Inactive' ?></span>
+                                        <span class="badge <?= $product['service_status'] ? 'badge-success' : 'badge-danger' ?>">
+                                            <?= $product['service_status'] == 1 ? 'Veg' : 'Non-Veg' ?></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -93,7 +93,7 @@ if (!$product) {
         </div>
 
         <div class="card-footer text-right">
-            <a href="edit.php?product_id=<?= $product['product_id'] ?>" class="btn btn-outline-primary font-weight-bold">
+            <a href="edit.php?service_id=<?= $product['service_id'] ?>" class="btn btn-outline-primary font-weight-bold">
                 <i class="fa fa-edit"></i>&nbsp; Edit Product
             </a>
         </div>

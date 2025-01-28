@@ -1,123 +1,98 @@
 <?php
-header("Content-Type: application/json");
 include "../config/connection.php";
 
-// Initialize response
-$response = ["status" => "error", "message" => "An unknown error occurred."];
+// Set the response format to JSON
+header('Content-Type: application/json');
 
-// Check if customer ID is provided via GET
-if (!isset($_GET['customer_id']) || empty($_GET['customer_id'])) {
-    $response["message"] = "Customer ID is required.";
-    echo json_encode($response);
-    exit;
-}
+// Check if the request method is POST
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Extract the POST data
+    $customer_id = mysqli_real_escape_string($conn, $_POST["customer_id"]);
+    $customer_name = mysqli_real_escape_string($conn, $_POST["customer_name"]);
+    $customer_email = mysqli_real_escape_string($conn, $_POST["customer_email"]);
+    $customer_phone = mysqli_real_escape_string($conn, $_POST["customer_phone"]);
+    $customer_address = mysqli_real_escape_string($conn, $_POST["customer_address"]);
+    $customer_status = mysqli_real_escape_string($conn, $_POST["customer_status"]);
 
-$customer_id = intval($_GET['customer_id']);
+    // Initialize image path
+    $image_path = "";
 
-// Fetch customer details from the database
-$query = "SELECT * FROM tbl_customer WHERE customer_id = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $customer_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$customer = $result->fetch_assoc();
-
-if (!$customer) {
-    $response["message"] = "Customer not found.";
-    echo json_encode($response);
-    exit;
-}
-
-// If form is submitted via POST method, process the update
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Validate and sanitize form inputs
-    $customer_name = filter_var($_POST["customer_name"], FILTER_SANITIZE_STRING);
-    $customer_email = filter_var($_POST["customer_email"], FILTER_SANITIZE_EMAIL);
-    $customer_password = $_POST["customer_password"];
-    $customer_phone = filter_var($_POST["customer_phone"], FILTER_SANITIZE_STRING);
-    $customer_address = filter_var($_POST["customer_address"], FILTER_SANITIZE_STRING);
-    $customer_status = 1;
-
-    // Validate email format
-    if (!filter_var($customer_email, FILTER_VALIDATE_EMAIL)) {
-        $response["message"] = "Invalid email format.";
-        echo json_encode($response);
+    // Validate required fields
+    if (empty($customer_id) || empty($customer_name) || empty($customer_email) || empty($customer_phone) || empty($customer_address)) {
+        echo json_encode(["error" => "Please fill in all required fields!"]);
         exit;
     }
 
-    // Hash password if a new one is provided, otherwise keep the existing one
-    if (!empty($customer_password)) {
-        $hashed_password = password_hash($customer_password, PASSWORD_BCRYPT);
-    } else {
-        $hashed_password = $customer['customer_password']; // Keep the existing password
+    // Check if the customer exists
+    $checkCustomerQuery = "SELECT * FROM tbl_customer WHERE customer_id = '$customer_id'";
+    $checkCustomerResult = mysqli_query($conn, $checkCustomerQuery);
+    if (mysqli_num_rows($checkCustomerResult) == 0) {
+        echo json_encode(["error" => "Customer not found!"]);
+        exit;
     }
 
-    // Handle image upload (if any)
-    $image_path = $customer['customer_image'];
-    if (isset($_FILES["customer_image"]) && $_FILES["customer_image"]["error"] == 0) {
-        $target_dir = "../uploads/customers/";
-        $customer_image = basename($_FILES["customer_image"]["name"]);
-        $target_file = $target_dir . $customer_image;
+    // Image upload processing
+    if (isset($_FILES["customer_image"])) {
+        $customer_image = $_FILES["customer_image"]["name"];
+        $customer_image_temp = $_FILES["customer_image"]["tmp_name"];
+
+        // Set the target directory where the file will be uploaded
+        $target_dir = "../../uploads/customers/";
+        $target_file = $target_dir . basename($customer_image);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        $allowed_types = ["jpg", "jpeg", "png"];
 
-        // Validate image type
-        if (!in_array($imageFileType, $allowed_types)) {
-            $response["message"] = "Invalid image format. Only JPG, JPEG, and PNG are allowed.";
-            echo json_encode($response);
-            exit;
-        }
+        // Check if the file is not empty
+        if ($_FILES["customer_image"]["size"] > 0) {
+            // Check if the file is an image by using getimagesize()
+            $check = getimagesize($customer_image_temp);
+            if ($check === false) {
+                echo json_encode(["error" => "File is not an image!"]);
+                exit;
+            }
 
-        // Validate image size (limit to 5MB)
-        if ($_FILES["customer_image"]["size"] > 5000000) {
-            $response["message"] = "Image file size exceeds the limit of 5MB.";
-            echo json_encode($response);
-            exit;
-        }
+            // Check file size (limit to 5MB)
+            if ($_FILES["customer_image"]["size"] > 5000000) {
+                echo json_encode(["error" => "Sorry, your file is too large!"]);
+                exit;
+            }
 
-        // Upload image
-        if (move_uploaded_file($_FILES["customer_image"]["tmp_name"], $target_file)) {
-            $image_path = $customer_image; // Update image path
-        } else {
-            $response["message"] = "Failed to upload image.";
-            echo json_encode($response);
-            exit;
+            // Allow certain file formats (JPG, JPEG, PNG)
+            if (!in_array($imageFileType, ["jpg", "jpeg", "png"])) {
+                echo json_encode(["error" => "Only JPG, JPEG, & PNG files are allowed!"]);
+                exit;
+            }
+
+            // Attempt to move the uploaded file to the target directory
+            if (move_uploaded_file($customer_image_temp, $target_file)) {
+                $image_path = $customer_image;
+            } else {
+                echo json_encode(["error" => "Error uploading the image!"]);
+                exit;
+            }
         }
     }
 
-    // Prepare and execute the update query
+    // Update the customer details
     $updateQuery = "UPDATE tbl_customer SET 
-        customer_name = ?, 
-        customer_email = ?, 
-        customer_password = ?, 
-        customer_phone = ?, 
-        customer_address = ?, 
-        customer_status = ?, 
-        customer_image = ? 
-        WHERE customer_id = ?";
-    
-    $stmt = $conn->prepare($updateQuery);
-    $stmt->bind_param("sssssssi", $customer_name, $customer_email, $hashed_password, $customer_phone, $customer_address, $customer_status, $image_path, $customer_id);
+                    customer_name = '$customer_name', 
+                    customer_email = '$customer_email', 
+                    customer_phone = '$customer_phone', 
+                    customer_address = '$customer_address', 
+                    customer_status = '$customer_status'";
 
-    // Execute query and return response
-    if ($stmt->execute()) {
-        $response = [
-            "status" => "success",
-            "message" => "Customer profile updated successfully!",
-            "data" => [
-                "customer_name" => $customer_name,
-                "customer_email" => $customer_email,
-                "customer_phone" => $customer_phone,
-                "customer_address" => $customer_address,
-                "customer_status" => $customer_status,
-                "customer_image" => $image_path,
-            ],
-        ];
-    } else {
-        $response["message"] = "Error updating profile: " . $stmt->error;
+    // Include the image path in the query if a new image was uploaded
+    if (!empty($image_path)) {
+        $updateQuery .= ", customer_image = '$image_path'";
     }
-}
 
-// Return JSON response
-echo json_encode($response);
+    $updateQuery .= " WHERE customer_id = '$customer_id'";
+
+    if (mysqli_query($conn, $updateQuery)) {
+        echo json_encode(["success" => "Customer updated successfully!"]);
+    } else {
+        echo json_encode(["error" => "Error updating customer: " . mysqli_error($conn)]);
+    }
+} else {
+    echo json_encode(["error" => "Invalid request method!"]);
+}
 ?>

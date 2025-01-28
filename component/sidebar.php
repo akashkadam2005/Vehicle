@@ -39,22 +39,9 @@
                         <p>Service</p>
                     </a>
                 </li>
-                <!-- Order Management -->
-                <!-- <li class="nav-item">
-                    <a href="<?= $base_url ?>order/index.php" class="nav-link">
-                        <i class="nav-icon fas fa-truck"></i>
-                        <p>Orders</p>
-                    </a>
-                </li> -->
-                <!-- Offer Management (New) -->
-                <!-- <li class="nav-item">
-                    <a href="<?= $base_url ?>offer/index.php" class="nav-link">
-                        <i class="nav-icon fas fa-gift"></i>
-                        <p>Offers</p>
-                    </a>
-                </li> -->
+           
                 <!-- Setting Management -->
-                <!-- <li class="nav-item">
+                <li class="nav-item">
                     <a href="<?= $base_url ?>#" class="nav-link">
                         <i class="fas fa-tools nav-icon"></i>
                         <p>
@@ -74,15 +61,9 @@
                                 <i class="fas fa-long-arrow-alt-right nav-icon"></i>
                                 <p>Blog's</p>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= $base_url ?>contact/index.php" class="nav-link">
-                                <i class="fas fa-long-arrow-alt-right nav-icon"></i>
-                                <p>Contact Us</p>
-                            </a>
-                        </li>
+                        </li> 
                     </ul>
-                </li> -->
+                </li>
                 <!-- Logout -->
                 <li class="nav-item">
                     <a href="<?= $base_url ?>logout.php" class="nav-link">

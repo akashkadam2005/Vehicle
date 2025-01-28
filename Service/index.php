@@ -8,13 +8,13 @@ include "../component/sidebar.php";
     <div class="card">
         <div class="card-header">
             <div class="text-center p-3">
-                <h3 class="font-weight-bold">Service Management</h3>
+                <h3 class="font-weight-bold">Product Management</h3>
             </div>
             <form action="">
                 <div class="row justify-content-end">
                     <div class="col-2 font-weight-bold">
-                    Service Name
-                        <input type="search" name="product_name" value="<?= isset($_GET["product_name"]) ? $_GET["product_name"] : "" ?>" class="form-control font-weight-bold" placeholder="Product Name">
+                        Product Name
+                        <input type="search" name="service_name" value="<?= isset($_GET["service_name"]) ? $_GET["service_name"] : "" ?>" class="form-control font-weight-bold" placeholder="Product Name">
                     </div>
                     <div class="col-1 font-weight-bold">
                         <br>
@@ -46,11 +46,11 @@ include "../component/sidebar.php";
                 <table class="table">
                     <tr>
                         <th>#</th>
-                        <th>Service Image</th>
-                        <th>Service Name</th>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
                         <th>Category</th>
                         <th>Price</th>
-                        <th>Status</th> 
+                        <th>Food Type</th> 
                         <th>Action</th>
                     </tr>
                     <?php
@@ -64,11 +64,11 @@ include "../component/sidebar.php";
                     $selectQuery = "SELECT p.*, c.category_name FROM `tbl_product` p INNER JOIN `tbl_category` c ON p.category_id = c.category_id LIMIT $limit OFFSET $offset";
 
                     // If search is applied, modify queries accordingly
-                    if (isset($_GET["product_name"])) {
-                        $product_name = $_GET["product_name"];
-                        $product_name = mysqli_real_escape_string($conn, $product_name);
-                        $countQuery = "SELECT COUNT(*) as total FROM `tbl_product` p INNER JOIN `tbl_category` c ON p.category_id = c.category_id WHERE p.product_name LIKE '%$product_name%'";
-                        $selectQuery = "SELECT p.*, c.category_name FROM `tbl_product` p INNER JOIN `tbl_category` c ON p.category_id = c.category_id WHERE p.product_name LIKE '%$product_name%' LIMIT $limit OFFSET $offset";
+                    if (isset($_GET["service_name"])) {
+                        $service_name = $_GET["service_name"];
+                        $service_name = mysqli_real_escape_string($conn, $service_name);
+                        $countQuery = "SELECT COUNT(*) as total FROM `tbl_product` p INNER JOIN `tbl_category` c ON p.category_id = c.category_id WHERE p.service_name LIKE '%$service_name%'";
+                        $selectQuery = "SELECT p.*, c.category_name FROM `tbl_product` p INNER JOIN `tbl_category` c ON p.category_id = c.category_id WHERE p.service_name LIKE '%$service_name%' LIMIT $limit OFFSET $offset";
                     }
 
                     // Get total records
@@ -82,20 +82,20 @@ include "../component/sidebar.php";
                     ?>
                         <tr>
                             <td><?= ++$count ?></td>
-                            <td><img src="../uploads/products/<?= $data['product_image'] == null ? "no_img.png" : $data['product_image'] ?>" width="100" height="100" alt="Product Image"></td>
+                            <td><img src="../uploads/products/<?= $data['service_image'] == null ? "no_img.png" : $data['service_image'] ?>" width="100" height="100" alt="Product Image"></td>
 
-                            <td><?= $data["product_name"] ?></td>
+                            <td><?= $data["service_name"] ?></td>
                             <td><?= $data["category_name"] ?></td> <!-- Category Name from the JOIN -->
-                            <td><?= $data["product_price"] ?></td>
-                            <td><?= $data["product_status"] == 1 ? 'Active' : 'Inactive' ?></td> 
+                            <td><?= $data["service_price"] - $data["service_dis_value"] ?></td>
+                            <td><?= $data["service_status"] == 1 ? 'Veg' : 'Non-Veg' ?></td> 
                             <td>
-                                <a href="view.php?product_id=<?= $data["product_id"] ?>" class="btn btn-sm shadow btn-success">
+                                <a href="view.php?service_id=<?= $data["service_id"] ?>" class="btn btn-sm shadow btn-success">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="edit.php?product_id=<?= $data["product_id"] ?>" class="btn btn-sm shadow btn-info">
+                                <a href="edit.php?service_id=<?= $data["service_id"] ?>" class="btn btn-sm shadow btn-info">
                                     <i class="fa fa-pen"></i>
                                 </a>
-                                <a href="delete.php?product_id=<?= $data["product_id"] ?>" onclick="if(confirm('Are you sure want to delete this product?')){return true}else{return false;}" class="btn btn-sm shadow btn-danger">
+                                <a href="delete.php?service_id=<?= $data["service_id"] ?>" onclick="if(confirm('Are you sure want to delete this product?')){return true}else{return false;}" class="btn btn-sm shadow btn-danger">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </td>
@@ -122,15 +122,15 @@ include "../component/sidebar.php";
             <div class="d-flex justify-content-center">
                 <div class="pagination">
                     <?php if ($page > 1): ?>
-                        <a class="btn btn-sm btn-outline-info ml-2" href="?page=<?php echo $page - 1; ?>&product_name=<?php echo isset($product_name) ? $product_name : ''; ?>">Previous</a>
+                        <a class="btn btn-sm btn-outline-info ml-2" href="?page=<?php echo $page - 1; ?>&service_name=<?php echo isset($service_name) ? $service_name : ''; ?>">Previous</a>
                     <?php endif; ?>
 
                     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                        <a class="btn btn-sm <?= $page == $i ? "btn-info" : "btn-outline-info" ?>  ml-2 shadow" href="?page=<?php echo $i; ?>&product_name=<?php echo isset($product_name) ? $product_name : ''; ?>"><?php echo $i; ?></a>
+                        <a class="btn btn-sm <?= $page == $i ? "btn-info" : "btn-outline-info" ?>  ml-2 shadow" href="?page=<?php echo $i; ?>&service_name=<?php echo isset($service_name) ? $service_name : ''; ?>"><?php echo $i; ?></a>
                     <?php endfor; ?>
 
                     <?php if ($page < $totalPages): ?>
-                        <a class="btn btn-sm btn-outline-info ml-2" href="?page=<?php echo $page + 1; ?>&product_name=<?php echo isset($product_name) ? $product_name : ''; ?>">Next</a>
+                        <a class="btn btn-sm btn-outline-info ml-2" href="?page=<?php echo $page + 1; ?>&service_name=<?php echo isset($service_name) ? $service_name : ''; ?>">Next</a>
                     <?php endif; ?>
                 </div>
             </div>

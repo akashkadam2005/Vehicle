@@ -6,15 +6,15 @@ header("Content-Type: application/json");
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $data = json_decode(file_get_contents("php://input"), true);
 
-    $product_id = $data['product_id'] ?? null;
+    $service_id = $data['service_id'] ?? null;
 
-    if (!$product_id) {
+    if (!$service_id) {
         echo json_encode(["status" => "error", "message" => "Product ID is required"]);
         exit;
     }
 
-    $stmt = $conn->prepare("DELETE FROM tbl_product WHERE product_id = ?");
-    $stmt->bind_param("i", $product_id);
+    $stmt = $conn->prepare("DELETE FROM tbl_product WHERE service_id = ?");
+    $stmt->bind_param("i", $service_id);
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {

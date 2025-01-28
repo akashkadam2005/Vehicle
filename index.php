@@ -15,10 +15,7 @@ $product_query = "SELECT COUNT(*) AS product_count FROM tbl_product";
 $product_result = mysqli_query($conn, $product_query);
 // $product_count = mysqli_fetch_assoc($product_result)['product_count'];
 
-// Count Orders
-$order_query = "SELECT COUNT(*) AS order_count FROM tbl_orders";  
-$order_result = mysqli_query($conn, $order_query);
-// $order_count = mysqli_fetch_assoc($order_result)['order_count'];
+ 
 
 // Count Categories
 $category_query = "SELECT COUNT(*) AS category_count FROM tbl_category";  
@@ -63,30 +60,7 @@ $category_result = mysqli_query($conn, $category_query);
     </div>
    
 
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <a href="<?= $base_url . "customer/" ?>" class="info-box-icon bg-warning elevation-1"><i class="fas fa-user-friends"></i></a>
-            <div class="info-box-content">
-                <span class="info-box-text">Employee</span>
-                <!-- <span class="info-box-number"><?= $customer_count ?></span> -->
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-    <!-- /.col -->
-    <!-- <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <a href="<?= $base_url . "orders/" ?>" class="info-box-icon bg-danger elevation-1"><i class="fas fa-shopping-cart"></i></a>
-            <div class="info-box-content">
-                <span class="info-box-text">Orders</span>
-                <!-- <span class="info-box-number"><?= $order_count ?></span> -->
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-    <!-- /.col -->
+    <!-- /.col --> 
 
     <!-- fix for small devices only -->
     <div class="clearfix hidden-md-up"></div>

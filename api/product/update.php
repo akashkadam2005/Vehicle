@@ -6,22 +6,22 @@ header("Content-Type: application/json");
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $data = json_decode(file_get_contents("php://input"), true);
 
-    $product_id = $data['product_id'] ?? null;
-    $product_name = $data['product_name'] ?? null;
-    $product_description = $data['product_description'] ?? null;
-    $product_image = $data['product_image'] ?? null;
-    $product_price = $data['product_price'] ?? null;
-    $product_dis = $data['product_dis'] ?? null;
-    $product_dis_value = $data['product_dis_value'] ?? null;
+    $service_id = $data['service_id'] ?? null;
+    $service_name = $data['service_name'] ?? null;
+    $service_description = $data['service_description'] ?? null;
+    $service_image = $data['service_image'] ?? null;
+    $service_price = $data['service_price'] ?? null;
+    $service_dis = $data['service_dis'] ?? null;
+    $service_dis_value = $data['service_dis_value'] ?? null;
     $category_id = $data['category_id'] ?? null;
 
-    if (!$product_id || !$product_name || !$product_price || !$category_id) {
+    if (!$service_id || !$service_name || !$service_price || !$category_id) {
         echo json_encode(["status" => "error", "message" => "Product ID, name, price, and category are required"]);
         exit;
     }
 
-    $stmt = $conn->prepare("UPDATE tbl_product SET product_name = ?, product_description = ?, product_image = ?, product_price = ?, product_dis = ?, product_dis_value = ?, category_id = ? WHERE product_id = ?");
-    $stmt->bind_param("sssdssii", $product_name, $product_description, $product_image, $product_price, $product_dis, $product_dis_value, $category_id, $product_id);
+    $stmt = $conn->prepare("UPDATE tbl_product SET service_name = ?, service_description = ?, service_image = ?, service_price = ?, service_dis = ?, service_dis_value = ?, category_id = ? WHERE service_id = ?");
+    $stmt->bind_param("sssdssii", $service_name, $service_description, $service_image, $service_price, $service_dis, $service_dis_value, $category_id, $service_id);
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {

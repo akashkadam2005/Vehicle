@@ -4,40 +4,40 @@ include "../component/header.php";
 include "../component/sidebar.php";
 
 // Check if the form is submitted
-if (isset($_POST["product_create"])) {
+if (isset($_POST["service_create"])) {
     // Sanitize and get form data
-    $product_name = mysqli_real_escape_string($conn, $_POST["product_name"]);
-    $product_description = mysqli_real_escape_string($conn, $_POST["product_description"]);
-    $product_price = mysqli_real_escape_string($conn, $_POST["product_price"]);
-    $product_stock = mysqli_real_escape_string($conn, $_POST["product_stock"]); 
+    $service_name = mysqli_real_escape_string($conn, $_POST["service_name"]);
+    $service_description = mysqli_real_escape_string($conn, $_POST["service_description"]);
+    $service_price = mysqli_real_escape_string($conn, $_POST["service_price"]); 
     $category_id = mysqli_real_escape_string($conn, $_POST["category_id"]);
-    $product_dis = mysqli_real_escape_string($conn, $_POST["product_dis"]);
-    $product_dis_value = mysqli_real_escape_string($conn, $_POST["product_dis_value"]);
-    $product_image = $_FILES["product_image"]["name"];
-    $product_image_temp = $_FILES["product_image"]["tmp_name"];
+    $service_dis = mysqli_real_escape_string($conn, $_POST["service_dis"]);
+    $service_dis_value = mysqli_real_escape_string($conn, $_POST["service_dis_value"]);
+    $service_status = mysqli_real_escape_string($conn, $_POST["service_status"]);
+    $service_image = $_FILES["service_image"]["name"];
+    $service_image_temp = $_FILES["service_image"]["tmp_name"];
 
     // Validate required fields
-    if (empty($product_name) || empty($product_price) || empty($product_stock) || empty($category_id)) {
+    if (empty($service_name) || empty($service_price) || empty($category_id) || empty($service_status)) {
         $_SESSION["error"] = "Please fill in all required fields!";
     } else {
         // Handle image upload if a file is uploaded
-        if (!empty($product_image)) {
+        if (!empty($service_image)) {
             $target_dir = "../uploads/products/";
-            $target_file = $target_dir . basename($product_image);
+            $target_file = $target_dir . basename($service_image);
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-            $check = getimagesize($product_image_temp);
+            $check = getimagesize($service_image_temp);
 
             if ($check === false) {
                 $_SESSION["error"] = "File is not an image!";
             } elseif (file_exists($target_file)) {
                 $_SESSION["error"] = "Sorry, the file already exists!";
-            } elseif ($_FILES["product_image"]["size"] > 5000000) {
+            } elseif ($_FILES["service_image"]["size"] > 5000000) {
                 $_SESSION["error"] = "Sorry, your file is too large!";
             } elseif (!in_array($imageFileType, ["jpg", "png", "jpeg"])) {
                 $_SESSION["error"] = "Only JPG, JPEG, & PNG files are allowed!";
             } else {
-                if (move_uploaded_file($product_image_temp, $target_file)) {
-                    $image_path = $product_image;
+                if (move_uploaded_file($service_image_temp, $target_file)) {
+                    $image_path = $service_image;
                 } else {
                     $_SESSION["error"] = "Error uploading the image!";
                 }
@@ -47,8 +47,8 @@ if (isset($_POST["product_create"])) {
         }
 
         // Insert query with new fields
-        $insertQuery = "INSERT INTO tbl_product (product_name, product_description, product_price, product_stock, category_id, product_image, product_dis, product_dis_value) 
-                        VALUES ('$product_name', '$product_description', '$product_price', '$product_stock', '$category_id', '$image_path', '$product_dis', '$product_dis_value')";
+        $insertQuery = "INSERT INTO tbl_product (service_name, service_description, service_price, category_id, service_image, service_dis, service_dis_value, service_status) 
+                        VALUES ('$service_name', '$service_description', '$service_price', '$category_id', '$image_path', '$service_dis', '$service_dis_value', '$service_status')";
         if (mysqli_query($conn, $insertQuery)) {
             $_SESSION["success"] = "Product Created Successfully!";
             echo "<script>window.location = 'index.php';</script>";
@@ -72,9 +72,9 @@ if (isset($_POST["product_create"])) {
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-4">
-                        <label for="product_name">Product Name <span class="text-danger">*</span></label>
-                        <input type="text" placeholder="Product Name" class="form-control font-weight-bold" name="product_name" id="product_name" required>
+                    <div class="col-6">
+                        <label for="service_name">Product Name <span class="text-danger">*</span></label>
+                        <input type="text" placeholder="Product Name" class="form-control font-weight-bold" name="service_name" id="service_name" required>
                     </div>
                     <div class="col-4">
                         <label for="category_id">Category <span class="text-danger">*</span></label>
@@ -89,35 +89,40 @@ if (isset($_POST["product_create"])) {
                             ?>
                         </select>
                     </div>
-                    <div class="col-4">
-                        <label for="product_price">Product Price <span class="text-danger">*</span></label>
-                        <input type="number" step="0.01" placeholder="Product Price" class="form-control font-weight-bold" name="product_price" id="product_price" required oninput="calculateDiscountValue()">
+                    <div class="col-2  ">
+                        <label for="service_status">Food Type <span class="text-danger">*</span></label>
+                        <select name="service_status" id="service_status" class="form-control font-weight-bold" required>
+                            <option value="">Select Food Type</option>
+                            <option value="1">Veg</option>
+                            <option value="2">Non-Veg</option>
+                        </select>
                     </div>
-                    <div class="col-6 mt-3">
-                        <label for="product_dis">Product Discount (%)</label>
-                        <input type="number" placeholder="Discount Percentage" class="form-control font-weight-bold" name="product_dis" id="product_dis" oninput="calculateDiscountValue()">
+                    <div class="col-3 mt-3">
+                        <label for="service_price">Product Price <span class="text-danger">*</span></label>
+                        <input type="number" step="0.01" placeholder="Product Price" class="form-control font-weight-bold" name="service_price" id="service_price" required oninput="calculateDiscountValue()">
                     </div>
-                    <div class="col-6 mt-3">
-                        <label for="product_dis_value">Discount Value</label>
-                        <input type="number" step="0.01" placeholder="Discount Value" class="form-control font-weight-bold" name="product_dis_value" id="product_dis_value" readonly>
+                    <div class="col-3 mt-3">
+                        <label for="service_dis">Product Discount (%)</label>
+                        <input type="number" placeholder="Discount Percentage" class="form-control font-weight-bold" name="service_dis" id="service_dis" oninput="calculateDiscountValue()">
                     </div>
-                    <div class="col-6 mt-3">
-                        <label for="product_stock">Product Stock <span class="text-danger">*</span></label>
-                        <input type="number" placeholder="Product Stock" class="form-control font-weight-bold" name="product_stock" id="product_stock" required>
+                    <div class="col-3 mt-3">
+                        <label for="service_dis_value">Discount Value</label>
+                        <input type="number" step="0.01" placeholder="Discount Value" class="form-control font-weight-bold" name="service_dis_value" id="service_dis_value" readonly>
                     </div>
-                    <div class="col-6 mt-3">
-                        <label for="product_image">Product Image</label>
-                        <input type="file" class="form-control font-weight-bold" name="product_image" id="product_image" accept="image/*">
+                  
+                    <div class="col-3 mt-3">
+                        <label for="service_image">Product Image</label>
+                        <input type="file" class="form-control font-weight-bold" name="service_image" id="service_image" accept="image/*">
                     </div>
                     <div class="col-12 mt-3">
-                        <label for="product_description">Product Description</label>
-                        <textarea name="product_description" id="product_description" rows="3" class="form-control font-weight-bold" placeholder="Enter product description"></textarea>
+                        <label for="service_description">Product Description</label>
+                        <textarea rows="10" name="service_description" id="service_description" rows="3" class="form-control font-weight-bold" placeholder="Enter product description"></textarea>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
                 <div class="d-flex justify-content-end">
-                    <button name="product_create" type="submit" class="btn btn-primary shadow font-weight-bold">
+                    <button name="service_create" type="submit" class="btn btn-primary shadow font-weight-bold">
                         <i class="fa fa-save"></i>&nbsp; Create Product
                     </button>
                     &nbsp;
@@ -132,17 +137,16 @@ if (isset($_POST["product_create"])) {
 
 <script>
     function calculateDiscountValue() {
-        const price = parseFloat(document.getElementById("product_price").value);
-        const discountPercentage = parseFloat(document.getElementById("product_dis").value);
+        const price = parseFloat(document.getElementById("service_price").value);
+        const discountPercentage = parseFloat(document.getElementById("service_dis").value);
         
         if (!isNaN(price) && !isNaN(discountPercentage)) {
             const discountValue = (price * discountPercentage) / 100;
-            document.getElementById("product_dis_value").value = discountValue.toFixed(2);
+            document.getElementById("service_dis_value").value = discountValue.toFixed(2);
         } else {
-            document.getElementById("product_dis_value").value = '';
+            document.getElementById("service_dis_value").value = '';
         }
     }
 </script>
- 
 
 <?php include "../component/footer.php"; ?>
