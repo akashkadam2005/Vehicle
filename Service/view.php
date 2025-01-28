@@ -26,7 +26,7 @@ if (!$product) {
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="font-weight-bold mb-0">Product Details</h5>
                 <a href="index.php" class="btn btn-light font-weight-bold">
-                    <i class="fa fa-arrow-left"></i>&nbsp; Back to Products
+                    <i class="fa fa-arrow-left"></i>&nbsp; Back to services
                 </a>
             </div>
         </div>
@@ -35,9 +35,9 @@ if (!$product) {
                 <!-- Product Image and Details -->
                 <div class="col-lg-4 text-center">
                     <?php if ($product['service_image']) { ?>
-                        <img src="../uploads/products/<?= htmlspecialchars($product['service_image']) ?>" class="img-fluid rounded mb-3" alt="Product Image">
+                        <img src="../uploads/services/<?= htmlspecialchars($product['service_image']) ?>" class="img-fluid rounded mb-3" alt="Product Image">
                     <?php } else { ?>
-                        <img src="../uploads/products/no_img.png" class="img-fluid rounded mb-3" alt="No Image Available">
+                        <img src="../uploads/services/no_img.png" class="img-fluid rounded mb-3" alt="No Image Available">
                     <?php } ?>
                   </div>
 
