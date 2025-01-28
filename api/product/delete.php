@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         exit;
     }
 
-    $stmt = $conn->prepare("DELETE FROM tbl_product WHERE service_id = ?");
+    $stmt = $conn->prepare("DELETE FROM tbl_services WHERE service_id = ?");
     $stmt->bind_param("i", $service_id);
     $stmt->execute();
 

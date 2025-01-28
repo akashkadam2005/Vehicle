@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         exit;
     }
 
-    $stmt = $conn->prepare("UPDATE tbl_product SET service_name = ?, service_description = ?, service_image = ?, service_price = ?, service_dis = ?, service_dis_value = ?, category_id = ? WHERE service_id = ?");
+    $stmt = $conn->prepare("UPDATE tbl_services SET service_name = ?, service_description = ?, service_image = ?, service_price = ?, service_dis = ?, service_dis_value = ?, category_id = ? WHERE service_id = ?");
     $stmt->bind_param("sssdssii", $service_name, $service_description, $service_image, $service_price, $service_dis, $service_dis_value, $category_id, $service_id);
     $stmt->execute();
 

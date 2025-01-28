@@ -7,7 +7,7 @@ include "../component/sidebar.php";
 $service_id = $_GET['service_id'];
 
 // Fetch product details
-$productQuery = "SELECT p.*, c.category_name FROM tbl_product p
+$productQuery = "SELECT p.*, c.category_name FROM tbl_services p
                  LEFT JOIN tbl_category c ON p.category_id = c.category_id
                  WHERE p.service_id = $service_id";
 $productResult = mysqli_query($conn, $productQuery);

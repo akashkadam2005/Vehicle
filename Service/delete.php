@@ -6,7 +6,7 @@ include "../config/connection.php";
 $service_id = $_GET["service_id"];
 
 // Use a prepared statement to delete the product
-$stmt = $conn->prepare("DELETE FROM `tbl_product` WHERE `service_id` = ?");
+$stmt = $conn->prepare("DELETE FROM `tbl_services` WHERE `service_id` = ?");
 $stmt->bind_param("i", $service_id);
 
 if ($stmt->execute()) {

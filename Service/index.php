@@ -60,15 +60,15 @@ include "../component/sidebar.php";
                     $offset = ($page - 1) * $limit;
 
                     // Count query to get total number of records
-                    $countQuery = "SELECT COUNT(*) as total FROM `tbl_product` p INNER JOIN `tbl_category` c ON p.category_id = c.category_id";
-                    $selectQuery = "SELECT p.*, c.category_name FROM `tbl_product` p INNER JOIN `tbl_category` c ON p.category_id = c.category_id LIMIT $limit OFFSET $offset";
+                    $countQuery = "SELECT COUNT(*) as total FROM `tbl_services` p INNER JOIN `tbl_category` c ON p.category_id = c.category_id";
+                    $selectQuery = "SELECT p.*, c.category_name FROM `tbl_services` p INNER JOIN `tbl_category` c ON p.category_id = c.category_id LIMIT $limit OFFSET $offset";
 
                     // If search is applied, modify queries accordingly
                     if (isset($_GET["service_name"])) {
                         $service_name = $_GET["service_name"];
                         $service_name = mysqli_real_escape_string($conn, $service_name);
-                        $countQuery = "SELECT COUNT(*) as total FROM `tbl_product` p INNER JOIN `tbl_category` c ON p.category_id = c.category_id WHERE p.service_name LIKE '%$service_name%'";
-                        $selectQuery = "SELECT p.*, c.category_name FROM `tbl_product` p INNER JOIN `tbl_category` c ON p.category_id = c.category_id WHERE p.service_name LIKE '%$service_name%' LIMIT $limit OFFSET $offset";
+                        $countQuery = "SELECT COUNT(*) as total FROM `tbl_services` p INNER JOIN `tbl_category` c ON p.category_id = c.category_id WHERE p.service_name LIKE '%$service_name%'";
+                        $selectQuery = "SELECT p.*, c.category_name FROM `tbl_services` p INNER JOIN `tbl_category` c ON p.category_id = c.category_id WHERE p.service_name LIKE '%$service_name%' LIMIT $limit OFFSET $offset";
                     }
 
                     // Get total records

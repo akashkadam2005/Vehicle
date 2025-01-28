@@ -47,7 +47,7 @@ if (isset($_POST["service_create"])) {
         }
 
         // Insert query with new fields
-        $insertQuery = "INSERT INTO tbl_product (service_name, service_description, service_price, category_id, service_image, service_dis, service_dis_value, service_status) 
+        $insertQuery = "INSERT INTO tbl_services (service_name, service_description, service_price, category_id, service_image, service_dis, service_dis_value, service_status) 
                         VALUES ('$service_name', '$service_description', '$service_price', '$category_id', '$image_path', '$service_dis', '$service_dis_value', '$service_status')";
         if (mysqli_query($conn, $insertQuery)) {
             $_SESSION["success"] = "Product Created Successfully!";

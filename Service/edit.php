@@ -7,7 +7,7 @@ include "../component/sidebar.php";
 $service_id = $_GET['service_id'];
 
 // Fetch product details
-$productQuery = "SELECT * FROM tbl_product WHERE service_id = $service_id";
+$productQuery = "SELECT * FROM tbl_services WHERE service_id = $service_id";
 $productResult = mysqli_query($conn, $productQuery);
 $product = mysqli_fetch_assoc($productResult);
 
@@ -51,7 +51,7 @@ if (isset($_POST["service_update"])) {
     }
 
     // Update query
-    $updateQuery = "UPDATE tbl_product SET 
+    $updateQuery = "UPDATE tbl_services SET 
         service_name = '$service_name',
         service_description = '$service_description',
         service_price = '$service_price', 

@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $stmt = $conn->prepare("INSERT INTO tbl_product (service_name, service_description, service_image, service_price, service_dis, service_dis_value, category_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO tbl_services (service_name, service_description, service_image, service_price, service_dis, service_dis_value, category_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sssdssi", $service_name, $service_description, $service_image, $service_price, $service_dis, $service_dis_value, $category_id);
     $stmt->execute();
 

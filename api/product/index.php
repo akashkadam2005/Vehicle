@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     '\"}'
                 )
             ) AS customer_ratings
-        FROM tbl_product p
+        FROM tbl_services p
         INNER JOIN tbl_category c ON c.category_id = p.category_id
         LEFT JOIN tbl_ratings r ON r.service_id = p.service_id
         LEFT JOIN tbl_customer cust ON cust.customer_id = r.customer_id";
