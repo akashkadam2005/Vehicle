@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "canteenautomationsystem");
+$conn = mysqli_connect("localhost", "root", "", "vehicle");
 
 if (!$conn) {
     echo "<script>alert('Something Went Wrong!')</script>";
