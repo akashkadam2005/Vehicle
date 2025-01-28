@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2025 at 09:56 AM
+-- Generation Time: Jan 28, 2025 at 10:14 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -74,6 +74,17 @@ CREATE TABLE `tbl_category` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_category`
+--
+
+INSERT INTO `tbl_category` (`category_id`, `category_name`, `category_image`, `category_status`, `created_at`) VALUES
+(1, 'Exterior Cleaning', NULL, 1, '2025-01-28 04:30:00'),
+(2, 'Interior Cleaning', '', 1, '2025-01-28 04:35:00'),
+(3, 'Full Body Wash', '', 1, '2025-01-28 04:40:00'),
+(4, 'Engine Detailing', '', 1, '2025-01-28 04:45:00'),
+(5, 'Premium Wash', '', 1, '2025-01-28 04:50:00');
+
 -- --------------------------------------------------------
 
 --
@@ -110,6 +121,27 @@ CREATE TABLE `tbl_services` (
   `category_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_services`
+--
+
+INSERT INTO `tbl_services` (`service_id`, `service_name`, `service_description`, `service_image`, `service_price`, `service_dis`, `service_dis_value`, `service_status`, `category_id`, `created_at`) VALUES
+(1, 'Basic Exterior Wash', 'A simple exterior car wash using high-pressure water.', '', 300.00, 'No', 0.00, 0, 1, '2025-01-28 05:00:00'),
+(2, 'Interior Vacuuming', 'Thorough vacuuming of car interiors including seats and mats.', '', 500.00, 'Yes', 10.00, 0, 2, '2025-01-28 05:05:00'),
+(3, 'Full Body Polish', 'Complete body polish for a shiny, scratch-free look.', '', 1000.00, 'Yes', 15.00, 0, 3, '2025-01-28 05:10:00'),
+(4, 'Engine Steam Cleaning', 'Cleaning of the car engine using steam for enhanced performance.', '', 1200.00, 'No', 0.00, 0, 4, '2025-01-28 05:15:00'),
+(5, 'Deluxe Premium Wash', 'A premium car wash with waxing and detailing for a showroom finish.', '', 2000.00, 'Yes', 20.00, 0, 5, '2025-01-28 05:20:00'),
+(6, 'Waterless Exterior Wash', 'An eco-friendly car wash using minimal water and special cleaning agents.', '', 400.00, 'Yes', 5.00, 0, 1, '2025-01-28 05:30:00'),
+(7, 'Exterior Wax Coating', 'Adds a protective wax layer to the car exterior for a glossy finish.', '', 800.00, 'No', 0.00, 0, 1, '2025-01-28 05:35:00'),
+(8, 'Leather Seat Cleaning', 'Special treatment for leather seats to clean and protect them.', '', 600.00, 'Yes', 10.00, 0, 2, '2025-01-28 05:40:00'),
+(9, 'Odor Removal', 'Removes unpleasant odors from car interiors using advanced techniques.', '', 700.00, 'No', 0.00, 0, 2, '2025-01-28 05:45:00'),
+(10, 'Foam Wash', 'Complete body wash with thick foam for a deep clean.', '', 900.00, 'Yes', 10.00, 0, 3, '2025-01-28 05:50:00'),
+(11, 'Underbody Wash', 'Specialized cleaning of the car\'s underbody to remove dirt and grime.', '', 1000.00, 'No', 0.00, 0, 3, '2025-01-28 05:55:00'),
+(12, 'Engine Degreasing', 'Removes grease and oil buildup for a cleaner engine.', '', 1500.00, 'Yes', 15.00, 0, 4, '2025-01-28 06:00:00'),
+(13, 'Battery Cleaning', 'Cleans car battery terminals and surroundings to improve performance.', '', 500.00, 'No', 0.00, 0, 4, '2025-01-28 06:05:00'),
+(14, 'Ceramic Coating', 'High-quality ceramic coating for long-lasting paint protection.', '', 5000.00, 'Yes', 25.00, 0, 5, '2025-01-28 06:10:00'),
+(15, 'Paint Restoration', 'Restores the car\'s paintwork to its original shine.', '', 3000.00, 'Yes', 20.00, 0, 5, '2025-01-28 06:15:00');
 
 -- --------------------------------------------------------
 
@@ -198,7 +230,7 @@ ALTER TABLE `tbl_customer`
 -- AUTO_INCREMENT for table `tbl_services`
 --
 ALTER TABLE `tbl_services`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbl_slider`
