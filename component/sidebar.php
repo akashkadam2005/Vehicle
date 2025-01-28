@@ -40,21 +40,21 @@
                     </a>
                 </li>
                 <!-- Order Management -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="<?= $base_url ?>order/index.php" class="nav-link">
                         <i class="nav-icon fas fa-truck"></i>
                         <p>Orders</p>
                     </a>
-                </li>
+                </li> -->
                 <!-- Offer Management (New) -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="<?= $base_url ?>offer/index.php" class="nav-link">
                         <i class="nav-icon fas fa-gift"></i>
                         <p>Offers</p>
                     </a>
-                </li>
+                </li> -->
                 <!-- Setting Management -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="<?= $base_url ?>#" class="nav-link">
                         <i class="fas fa-tools nav-icon"></i>
                         <p>
@@ -82,7 +82,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <!-- Logout -->
                 <li class="nav-item">
                     <a href="<?= $base_url ?>logout.php" class="nav-link">
