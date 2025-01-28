@@ -75,10 +75,10 @@ if (!$product) {
                                     <td><?= nl2br(htmlspecialchars($product['service_description'])) ?></td>
                                 </tr>
                                 <tr> 
-                                    <td class="font-weight-bold">Food Type</td>
+                                    <td class="font-weight-bold">Visibillity</td>
                                     <td>
                                         <span class="badge <?= $product['service_status'] ? 'badge-success' : 'badge-danger' ?>">
-                                            <?= $product['service_status'] == 1 ? 'Veg' : 'Non-Veg' ?></span>
+                                            <?= $product['service_status'] == 1 ? 'Public' : 'Hidden' ?></span>
                                     </td>
                                 </tr>
                                 <tr>
