@@ -39,6 +39,12 @@
                         <p>Service</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="<?= $base_url ?>washingpoint/index.php" class="nav-link">
+                        <i class="nav-icon fas fa-box-open"></i>
+                        <p>Washing Point</p>
+                    </a>
+                </li>
            
                 <!-- Setting Management -->
                 <li class="nav-item">
@@ -60,6 +66,12 @@
                             <a href="<?= $base_url ?>blog/index.php" class="nav-link">
                                 <i class="fas fa-long-arrow-alt-right nav-icon"></i>
                                 <p>Blog's</p>
+                            </a>
+                        </li> 
+                        <li class="nav-item">
+                            <a href="<?= $base_url ?>City/index.php" class="nav-link">
+                                <i class="fas fa-long-arrow-alt-right nav-icon"></i>
+                                <p>City</p>
                             </a>
                         </li> 
                     </ul>
