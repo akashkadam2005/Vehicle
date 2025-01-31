@@ -22,7 +22,7 @@ include "../component/sidebar.php";
                     </div>
                     <div class="col-2 font-weight-bold">
                         <br>
-                        <a href="create.php" class="font-weight-bold w-100 shadow btn btn-success"> <i class="fas fa-plus"></i>&nbsp; Add City</a>
+                        <a href="store.php" class="font-weight-bold w-100 shadow btn btn-success"> <i class="fas fa-plus"></i>&nbsp; Add City</a>
                     </div>
                 </div>
             </form>

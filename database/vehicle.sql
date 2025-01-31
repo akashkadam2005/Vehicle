@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2025 at 10:14 AM
+-- Generation Time: Jan 31, 2025 at 03:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,6 +63,27 @@ CREATE TABLE `tbl_blog` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_bookings`
+--
+
+CREATE TABLE `tbl_bookings` (
+  `booking_id` int(11) NOT NULL,
+  `booking_category_id` int(11) NOT NULL,
+  `booking_service_id` int(11) NOT NULL,
+  `booking_customer_id` int(11) NOT NULL,
+  `booking_time` time NOT NULL,
+  `booking_date` date NOT NULL,
+  `booking_washing_point` varchar(255) DEFAULT NULL,
+  `booking_message` text DEFAULT NULL,
+  `booking_status` int(11) DEFAULT 1,
+  `booking_price` decimal(10,2) NOT NULL,
+  `booking_payment_method` varchar(255) DEFAULT NULL,
+  `booking_payment_status` int(11) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_category`
 --
 
@@ -84,6 +105,25 @@ INSERT INTO `tbl_category` (`category_id`, `category_name`, `category_image`, `c
 (3, 'Full Body Wash', '', 1, '2025-01-28 04:40:00'),
 (4, 'Engine Detailing', '', 1, '2025-01-28 04:45:00'),
 (5, 'Premium Wash', '', 1, '2025-01-28 04:50:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_city`
+--
+
+CREATE TABLE `tbl_city` (
+  `city_id` int(11) NOT NULL,
+  `city_name` varchar(255) NOT NULL,
+  `city_status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_city`
+--
+
+INSERT INTO `tbl_city` (`city_id`, `city_name`, `city_status`) VALUES
+(1, 'Solapur', 1);
 
 -- --------------------------------------------------------
 
@@ -157,6 +197,34 @@ CREATE TABLE `tbl_slider` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `tbl_slider`
+--
+
+INSERT INTO `tbl_slider` (`slider_id`, `slider_image`, `slider_status`, `created_at`) VALUES
+(4, 'how-to-clean-tinted-car-windows.jpg', 1, '2025-01-31 11:09:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_washing_point`
+--
+
+CREATE TABLE `tbl_washing_point` (
+  `washing_id` int(11) NOT NULL,
+  `washing_city_id` int(11) NOT NULL,
+  `washing_location` varchar(255) DEFAULT NULL,
+  `washing_landmark` varchar(255) DEFAULT NULL,
+  `washing_status` int(11) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_washing_point`
+--
+
+INSERT INTO `tbl_washing_point` (`washing_id`, `washing_city_id`, `washing_location`, `washing_landmark`, `washing_status`) VALUES
+(1, 1, 'Natepute', 'near in bus Stand', 1);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -173,10 +241,25 @@ ALTER TABLE `tbl_blog`
   ADD PRIMARY KEY (`blog_id`);
 
 --
+-- Indexes for table `tbl_bookings`
+--
+ALTER TABLE `tbl_bookings`
+  ADD PRIMARY KEY (`booking_id`),
+  ADD KEY `booking_category_id` (`booking_category_id`),
+  ADD KEY `booking_service_id` (`booking_service_id`),
+  ADD KEY `booking_customer_id` (`booking_customer_id`);
+
+--
 -- Indexes for table `tbl_category`
 --
 ALTER TABLE `tbl_category`
   ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `tbl_city`
+--
+ALTER TABLE `tbl_city`
+  ADD PRIMARY KEY (`city_id`);
 
 --
 -- Indexes for table `tbl_customer`
@@ -199,6 +282,13 @@ ALTER TABLE `tbl_slider`
   ADD PRIMARY KEY (`slider_id`);
 
 --
+-- Indexes for table `tbl_washing_point`
+--
+ALTER TABLE `tbl_washing_point`
+  ADD PRIMARY KEY (`washing_id`),
+  ADD KEY `washing_city_id` (`washing_city_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -215,10 +305,22 @@ ALTER TABLE `tbl_blog`
   MODIFY `blog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `tbl_bookings`
+--
+ALTER TABLE `tbl_bookings`
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbl_category`
 --
 ALTER TABLE `tbl_category`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `tbl_city`
+--
+ALTER TABLE `tbl_city`
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_customer`
@@ -236,7 +338,31 @@ ALTER TABLE `tbl_services`
 -- AUTO_INCREMENT for table `tbl_slider`
 --
 ALTER TABLE `tbl_slider`
-  MODIFY `slider_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `slider_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbl_washing_point`
+--
+ALTER TABLE `tbl_washing_point`
+  MODIFY `washing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tbl_bookings`
+--
+ALTER TABLE `tbl_bookings`
+  ADD CONSTRAINT `tbl_bookings_ibfk_1` FOREIGN KEY (`booking_category_id`) REFERENCES `tbl_category` (`category_id`),
+  ADD CONSTRAINT `tbl_bookings_ibfk_2` FOREIGN KEY (`booking_service_id`) REFERENCES `tbl_services` (`service_id`),
+  ADD CONSTRAINT `tbl_bookings_ibfk_3` FOREIGN KEY (`booking_customer_id`) REFERENCES `tbl_customer` (`customer_id`);
+
+--
+-- Constraints for table `tbl_washing_point`
+--
+ALTER TABLE `tbl_washing_point`
+  ADD CONSTRAINT `tbl_washing_point_ibfk_1` FOREIGN KEY (`washing_city_id`) REFERENCES `tbl_city` (`city_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
