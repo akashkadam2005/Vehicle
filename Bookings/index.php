@@ -96,12 +96,15 @@ include "../component/sidebar.php";
                                 </span>
                             </td>
                             <td>
+                                <a href="view.php?booking_id=<?= $data['booking_id'] ?>" class="btn btn-sm shadow btn-primary">
+                                    <i class="fa fa-eye"></i>
+                                </a>
                                 <a href="edit.php?booking_id=<?= $data['booking_id'] ?>" class="btn btn-sm shadow btn-info">
                                     <i class="fa fa-pen"></i>
                                 </a>
-                                <a href="delete.php?booking_id=<?= $data['booking_id'] ?>" 
-                                   onclick="return confirm('Are you sure you want to delete this booking?')" 
-                                   class="btn btn-sm shadow btn-danger">
+                                <a href="delete.php?booking_id=<?= $data['booking_id'] ?>"
+                                    onclick="return confirm('Are you sure you want to delete this booking?')"
+                                    class="btn btn-sm shadow btn-danger">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </td>
@@ -110,7 +113,8 @@ include "../component/sidebar.php";
                     }
 
                     // Helper function to get status label
-                    function getStatusLabel($status) {
+                    function getStatusLabel($status)
+                    {
                         $labels = [
                             1 => "Pending",
                             2 => "Accepted",
@@ -121,7 +125,8 @@ include "../component/sidebar.php";
                     }
 
                     // Helper function to get status badge color
-                    function getStatusBadge($status) {
+                    function getStatusBadge($status)
+                    {
                         $badges = [
                             1 => "warning",
                             2 => "info",
