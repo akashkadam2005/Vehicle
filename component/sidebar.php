@@ -21,7 +21,7 @@
                 <!-- Customer Management -->
                 <li class="nav-item">
                     <a href="<?= $base_url ?>customer/index.php" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
+                        <i class="nav-icon fas fa-user-friends "></i>
                         <p>Customers</p>
                     </a>
                 </li>
@@ -37,6 +37,12 @@
                     <a href="<?= $base_url ?>Service/index.php" class="nav-link">
                         <i class="nav-icon fas fa-box-open"></i>
                         <p>Service</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= $base_url ?>employee/index.php" class="nav-link">
+                        <i class="nav-icon fas fa-user-tie"></i>
+                        <p>Employee</p>
                     </a>
                 </li>
            

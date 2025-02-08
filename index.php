@@ -13,15 +13,20 @@ $customer_count = mysqli_fetch_assoc($customer_result)['customer_count'];
 // Count Services
 $product_query = "SELECT COUNT(*) AS product_count FROM tbl_services";
 $product_result = mysqli_query($conn, $product_query);
-// $product_count = mysqli_fetch_assoc($product_result)['product_count'];
+$product_count = mysqli_fetch_assoc($product_result)['product_count'];
 
- 
+// Count Services
+$employee_query = "SELECT COUNT(*) AS employee_count FROM tbl_employee";
+$employee_result = mysqli_query($conn, $employee_query);
+$employee_count = mysqli_fetch_assoc($employee_result)['employee_count'];
+
+
 
 // Count Categories
-$category_query = "SELECT COUNT(*) AS category_count FROM tbl_category";  
+$category_query = "SELECT COUNT(*) AS category_count FROM tbl_category";
 $category_result = mysqli_query($conn, $category_query);
-// $category_count = mysqli_fetch_assoc($category_result)['category_count'];
- 
+$category_count = mysqli_fetch_assoc($category_result)['category_count'];
+
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -42,42 +47,60 @@ $category_result = mysqli_query($conn, $category_query);
   <section class="content">
     <div class="container-fluid">
       <!-- Info boxes -->
-      <div class="row d-flex justify-content-between p-5">
-
-  
-
-
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <a href="<?= $base_url . "customer/" ?>" class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></a>
+      <div class="row d-flex justify-content-between">
+        <!-- Customers -->
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <a href="<?= $base_url . "customer/" ?>" class="info-box-icon bg-primary elevation-1">
+              <i class="fas fa-user-friends"></i>
+            </a>
             <div class="info-box-content">
-                <span class="info-box-text">Customers</span>
-                <span class="info-box-number"><?= $customer_count ?></span>
+              <span class="info-box-text">Total Customers</span>
+              <span class="info-box-number"><?= $customer_count ?></span>
             </div>
-            <!-- /.info-box-content -->
+          </div>
         </div>
-        <!-- /.info-box -->
-    </div>
-   
 
-    <!-- /.col --> 
-
-    <!-- fix for small devices only -->
-    <div class="clearfix hidden-md-up"></div>
-
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <a href="<?= $base_url . "category/" ?>" class="info-box-icon bg-success elevation-1"><i class="fas fa-th-list"></i></a>
+        <!-- Employees -->
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <a href="<?= $base_url . "employee/" ?>" class="info-box-icon bg-info elevation-1">
+              <i class="fas fa-user-tie"></i>
+            </a>
             <div class="info-box-content">
-                <span class="info-box-text">Available Categories</span>
-                <!-- <span class="info-box-number"><?= $category_count ?></span> -->
+              <span class="info-box-text">Total Employees</span>
+              <span class="info-box-number"><?= $employee_count ?></span>
             </div>
-            <!-- /.info-box-content -->
+          </div>
         </div>
-        <!-- /.info-box -->
-    </div> -->
-    <!-- /.col -->
-</div>
+
+        <!-- Services -->
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <a href="<?= $base_url . "services/" ?>" class="info-box-icon bg-warning elevation-1">
+              <i class="fas fa-concierge-bell"></i>
+            </a>
+            <div class="info-box-content">
+              <span class="info-box-text">Total Services</span>
+              <span class="info-box-number"><?= $product_count ?></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <a href="<?= $base_url . "category/" ?>" class="info-box-icon bg-success elevation-1">
+              <i class="fas fa-th-list"></i>
+            </a>
+            <div class="info-box-content">
+              <span class="info-box-text">Available Categories</span>
+              <span class="info-box-number"><?= $category_count ?></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- /.row -->
 
