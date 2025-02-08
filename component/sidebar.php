@@ -48,16 +48,18 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?= $base_url ?>Bookings/index.php" class="nav-link">
-                        <i class="nav-icon fas fa-box-open"></i>
+                        <i class="nav-icon fas fa-calendar-check"></i>
                         <p>Booking</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="<?= $base_url ?>washingpoint/index.php" class="nav-link">
-                        <i class="nav-icon fas fa-box-open"></i>
+                        <i class="nav-icon fas fa-shower"></i>
                         <p>Washing Point</p>
                     </a>
                 </li>
+
+
 
                 <!-- Setting Management -->
                 <li class="nav-item">
