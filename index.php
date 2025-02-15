@@ -31,28 +31,18 @@ $category_count = mysqli_fetch_assoc($category_result)['category_count'];
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <div class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-12 text-center">
-          <h1 class="h1">Admin Dashboard </h1>
-        </div><!-- /.col -->
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </div>
-  <!-- /.content-header -->
+
 
   <!-- Main content -->
-  <section class="content">
+  <section class="content pt-3">
     <div class="container-fluid">
       <!-- Info boxes -->
       <div class="row d-flex justify-content-between">
         <!-- Customers -->
         <div class="col-12 col-sm-6 col-md-3">
           <div class="info-box mb-3">
-            <a href="<?= $base_url . "customer/" ?>" class="info-box-icon bg-primary elevation-1">
-              <i class="fas fa-user-friends"></i>
+            <a href="<?= $base_url . "customer/" ?>" class="info-box-icon bg-info elevation-1">
+              <i class="fas fa-users"></i>
             </a>
             <div class="info-box-content">
               <span class="info-box-text">Total Customers</span>
@@ -61,18 +51,7 @@ $category_count = mysqli_fetch_assoc($category_result)['category_count'];
           </div>
         </div>
 
-        <!-- Employees -->
-        <div class="col-12 col-sm-6 col-md-3">
-          <div class="info-box mb-3">
-            <a href="<?= $base_url . "employee/" ?>" class="info-box-icon bg-info elevation-1">
-              <i class="fas fa-user-tie"></i>
-            </a>
-            <div class="info-box-content">
-              <span class="info-box-text">Total Employees</span>
-              <span class="info-box-number"><?= $employee_count ?></span>
-            </div>
-          </div>
-        </div>
+
 
         <!-- Services -->
         <div class="col-12 col-sm-6 col-md-3">
@@ -81,7 +60,7 @@ $category_count = mysqli_fetch_assoc($category_result)['category_count'];
               <i class="fas fa-concierge-bell"></i>
             </a>
             <div class="info-box-content">
-              <span class="info-box-text">Total Services</span>
+              <span class="info-box-text">Available Services</span>
               <span class="info-box-number"><?= $product_count ?></span>
             </div>
           </div>
@@ -99,6 +78,115 @@ $category_count = mysqli_fetch_assoc($category_result)['category_count'];
             </div>
           </div>
         </div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <a href="<?= $base_url . "Reviews/" ?>" class="info-box-icon bg-info elevation-1">
+              <i class="fas fa-comments"></i> <!-- Updated to represent customer feedback -->
+            </a>
+            <div class="info-box-content">
+              <span class="info-box-text">Customer Feedbacks</span>
+              <span class="info-box-number">10</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <a href="<?= $base_url . "Bookings/" ?>" class="info-box-icon bg-info elevation-1">
+              <i class="fas fa-calendar-alt"></i> <!-- Updated -->
+            </a>
+            <div class="info-box-content">
+              <span class="info-box-text">Total Bookings</span>
+              <span class="info-box-number">10</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <a href="<?= $base_url . "Bookings/" ?>" class="info-box-icon bg-warning elevation-1">
+              <i class="fas fa-clock"></i> <!-- Pending Bookings -->
+            </a>
+            <div class="info-box-content">
+              <span class="info-box-text">Pending Bookings</span>
+              <span class="info-box-number">10</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <a href="<?= $base_url . "Bookings/" ?>" class="info-box-icon bg-success elevation-1">
+              <i class="fas fa-check-circle"></i> <!-- Completed Bookings -->
+            </a>
+            <div class="info-box-content">
+              <span class="info-box-text">Completed Bookings</span>
+              <span class="info-box-number">10</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <a href="<?= $base_url . "Bookings/" ?>" class="info-box-icon bg-danger elevation-1">
+              <i class="fas fa-times-circle"></i> <!-- Cancelled Bookings -->
+            </a>
+            <div class="info-box-content">
+              <span class="info-box-text">Cancelled Bookings</span>
+              <span class="info-box-number">10</span>
+            </div>
+          </div>
+        </div>
+        <!-- Employees -->
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <a href="<?= $base_url . "employee/" ?>" class="info-box-icon bg-info elevation-1">
+              <i class="fas fa-user-tie"></i>
+            </a>
+            <div class="info-box-content">
+              <span class="info-box-text">Total Employees</span>
+              <span class="info-box-number"><?= $employee_count ?></span>
+            </div>
+          </div>
+        </div>
+        <!-- Employees -->
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <a href="<?= $base_url . "employee/" ?>" class="info-box-icon bg-warning elevation-1">
+              <i class="fas fa-user-cog"></i> <!-- Updated icon for Working Employees -->
+            </a>
+            <div class="info-box-content">
+              <span class="info-box-text">On-Duty Employees</span> <!-- Updated title -->
+              <span class="info-box-number"><?= $employee_count ?></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <a href="<?= $base_url . "employee/" ?>" class="info-box-icon bg-success elevation-1">
+              <i class="fas fa-user-clock"></i> <!-- Updated icon for Free Employees -->
+            </a>
+            <div class="info-box-content">
+              <span class="info-box-text">Available Employees</span> <!-- Updated title -->
+              <span class="info-box-number"><?= $employee_count ?></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <a href="<?= $base_url . "review/" ?>" class="info-box-icon bg-info elevation-1">
+              <i class="fas fa-star"></i> <!-- Total Reviews -->
+            </a>
+            <div class="info-box-content">
+              <span class="info-box-text">Total Reviews</span>
+              <span class="info-box-number">10</span>
+            </div>
+          </div>
+        </div>
+
+
       </div>
 
 
