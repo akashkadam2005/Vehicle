@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2025 at 03:36 PM
+-- Generation Time: Feb 15, 2025 at 07:27 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -81,6 +81,15 @@ CREATE TABLE `tbl_bookings` (
   `booking_payment_status` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_bookings`
+--
+
+INSERT INTO `tbl_bookings` (`booking_id`, `booking_category_id`, `booking_service_id`, `booking_customer_id`, `booking_time`, `booking_date`, `booking_washing_point`, `booking_message`, `booking_status`, `booking_price`, `booking_payment_method`, `booking_payment_status`) VALUES
+(1, 2, 8, 9, '03:25:00', '2025-02-22', '1', 'udya pasun ', 1, 600.00, '1', 1),
+(2, 5, 5, 9, '04:51:00', '2025-02-28', '1', 'gjjh\n', 2, 2000.00, '1', 1),
+(3, 1, 1, 6, '05:56:00', '2025-02-14', '2', 'ddd', 1, 300.00, '1', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -100,11 +109,11 @@ CREATE TABLE `tbl_category` (
 --
 
 INSERT INTO `tbl_category` (`category_id`, `category_name`, `category_image`, `category_status`, `created_at`) VALUES
-(1, 'Exterior Cleaning', NULL, 1, '2025-01-28 04:30:00'),
-(2, 'Interior Cleaning', '', 1, '2025-01-28 04:35:00'),
-(3, 'Full Body Wash', '', 1, '2025-01-28 04:40:00'),
-(4, 'Engine Detailing', '', 1, '2025-01-28 04:45:00'),
-(5, 'Premium Wash', '', 1, '2025-01-28 04:50:00');
+(1, 'Exterior Cleaning', 'washing-jpg-500x500.jpg', 1, '2025-01-28 04:30:00'),
+(2, 'Interior Cleaning', 'interior-cleaning.jpg', 1, '2025-01-28 04:35:00'),
+(3, 'Full Body Wash', 'Car-Wash-Liquid-Shampoo-Washing-Liquid-Safe-to-Car-Body-Yt04-20L (1).jpg', 1, '2025-01-28 04:40:00'),
+(4, 'Engine Detailing', 'INGINE.jpg', 1, '2025-01-28 04:45:00'),
+(5, 'Premium Wash', '5000-premium-car-wash-gel-unleash-the-ultimate-shine-car-washing-original-imagwrvugunfyzbw.jpg', 1, '2025-01-28 04:50:00');
 
 -- --------------------------------------------------------
 
@@ -123,7 +132,9 @@ CREATE TABLE `tbl_city` (
 --
 
 INSERT INTO `tbl_city` (`city_id`, `city_name`, `city_status`) VALUES
-(1, 'Solapur', 1);
+(1, 'Solapur', 1),
+(2, 'Pune', 1),
+(3, 'कोल्हापूर', 1);
 
 -- --------------------------------------------------------
 
@@ -142,6 +153,38 @@ CREATE TABLE `tbl_customer` (
   `customer_status` int(11) DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_customer`
+--
+
+INSERT INTO `tbl_customer` (`customer_id`, `customer_name`, `customer_email`, `customer_password`, `customer_phone`, `customer_image`, `customer_address`, `customer_status`, `created_at`) VALUES
+(6, 'Akash Kadam', 'akash@gmail.com', '$2y$10$Do3IU7gT7LKH9vFVc4wP6OTmPufngn1HBs.XRfoqEBbbJQjxNwVqi', '9322648858', '', 'bmt', 1, '2025-02-04 09:46:59'),
+(7, 'Sanket Jadhav ', 'sanket@gmail.com', '$2y$10$wfcX1sUnysWD4vxUucOJU.VoLC5vejZ8bTW9eB.XkHy92L31VZFsy', '988776677665', '1000015792.jpg', 'Phaltan', 1, '2025-02-14 05:54:08'),
+(9, 'ak', 'ak@gmail.com', '$2y$10$hSPTEpFolZzT4AO6cCZoTOv3CivaTLtPmQ/9LUkrwSX6PmUS4x74.', '97755755765', '1000016164.jpg', 'mmt', 1, '2025-02-14 05:59:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ratings`
+--
+
+CREATE TABLE `tbl_ratings` (
+  `rating_id` int(11) NOT NULL,
+  `booking_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `rating` int(11) DEFAULT NULL CHECK (`rating` between 1 and 5),
+  `review_rating` varchar(255) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_ratings`
+--
+
+INSERT INTO `tbl_ratings` (`rating_id`, `booking_id`, `service_id`, `customer_id`, `rating`, `review_rating`, `created_at`) VALUES
+(1, 1, 2, 6, 3, 'ok', NULL);
 
 -- --------------------------------------------------------
 
@@ -167,13 +210,13 @@ CREATE TABLE `tbl_services` (
 --
 
 INSERT INTO `tbl_services` (`service_id`, `service_name`, `service_description`, `service_image`, `service_price`, `service_dis`, `service_dis_value`, `service_status`, `category_id`, `created_at`) VALUES
-(1, 'Basic Exterior Wash', 'A simple exterior car wash using high-pressure water.', '', 300.00, 'No', 0.00, 0, 1, '2025-01-28 05:00:00'),
-(2, 'Interior Vacuuming', 'Thorough vacuuming of car interiors including seats and mats.', '', 500.00, 'Yes', 10.00, 0, 2, '2025-01-28 05:05:00'),
-(3, 'Full Body Polish', 'Complete body polish for a shiny, scratch-free look.', '', 1000.00, 'Yes', 15.00, 0, 3, '2025-01-28 05:10:00'),
+(1, 'Basic Exterior Wash', 'A simple exterior car wash using high-pressure water.', 'basicWash1.png', 300.00, '', 0.00, 2, 1, '2025-01-28 05:00:00'),
+(2, 'Interior Vacuuming', 'Thorough vacuuming of car interiors including seats and mats.', 'how-to-clean-tinted-car-windows.jpg', 500.00, '', 10.00, 2, 2, '2025-01-28 05:05:00'),
+(3, 'Full Body Polish', 'Complete body polish for a shiny, scratch-free look.', 'abcsCar.jpg', 1000.00, '', 15.00, 2, 3, '2025-01-28 05:10:00'),
 (4, 'Engine Steam Cleaning', 'Cleaning of the car engine using steam for enhanced performance.', '', 1200.00, 'No', 0.00, 0, 4, '2025-01-28 05:15:00'),
 (5, 'Deluxe Premium Wash', 'A premium car wash with waxing and detailing for a showroom finish.', '', 2000.00, 'Yes', 20.00, 0, 5, '2025-01-28 05:20:00'),
-(6, 'Waterless Exterior Wash', 'An eco-friendly car wash using minimal water and special cleaning agents.', '', 400.00, 'Yes', 5.00, 0, 1, '2025-01-28 05:30:00'),
-(7, 'Exterior Wax Coating', 'Adds a protective wax layer to the car exterior for a glossy finish.', '', 800.00, 'No', 0.00, 0, 1, '2025-01-28 05:35:00'),
+(6, 'Waterless Exterior Wash', 'An eco-friendly car wash using minimal water and special cleaning agents.', 'Waterless Exterior Wash.jpg', 400.00, '', 5.00, 2, 1, '2025-01-28 05:30:00'),
+(7, 'Exterior Wax Coating', 'Adds a protective wax layer to the car exterior for a glossy finish.', 'carwaxpolish.jpg', 800.00, '', 0.00, 2, 1, '2025-01-28 05:35:00'),
 (8, 'Leather Seat Cleaning', 'Special treatment for leather seats to clean and protect them.', '', 600.00, 'Yes', 10.00, 0, 2, '2025-01-28 05:40:00'),
 (9, 'Odor Removal', 'Removes unpleasant odors from car interiors using advanced techniques.', '', 700.00, 'No', 0.00, 0, 2, '2025-01-28 05:45:00'),
 (10, 'Foam Wash', 'Complete body wash with thick foam for a deep clean.', '', 900.00, 'Yes', 10.00, 0, 3, '2025-01-28 05:50:00'),
@@ -201,7 +244,10 @@ CREATE TABLE `tbl_slider` (
 --
 
 INSERT INTO `tbl_slider` (`slider_id`, `slider_image`, `slider_status`, `created_at`) VALUES
-(4, 'how-to-clean-tinted-car-windows.jpg', 1, '2025-01-31 11:09:50');
+(4, 'how-to-clean-tinted-car-windows.jpg', 1, '2025-01-31 11:09:50'),
+(5, '5000-premium-car-wash-gel-unleash-the-ultimate-shine-car-washing-original-imagwrvugunfyzbw.jpg', 1, '2025-02-14 06:59:33'),
+(6, 'Car-Wash-Liquid-Shampoo-Washing-Liquid-Safe-to-Car-Body-Yt04-20L (1).jpg', 1, '2025-02-14 06:59:43'),
+(7, 'abcsCar.jpg', 1, '2025-02-14 07:00:01');
 
 -- --------------------------------------------------------
 
@@ -222,7 +268,10 @@ CREATE TABLE `tbl_washing_point` (
 --
 
 INSERT INTO `tbl_washing_point` (`washing_id`, `washing_city_id`, `washing_location`, `washing_landmark`, `washing_status`) VALUES
-(1, 1, 'Natepute', 'near in bus Stand', 1);
+(1, 1, 'Natepute', 'near in bus Stand', 1),
+(2, 2, 'Baramati', 'Near in bus Stand', 1),
+(3, 3, ' खु. कोल्हापूर', 'near in mandir', 1),
+(4, 1, 'Malshiras', 'near by pandre garmentes', 1);
 
 --
 -- Indexes for dumped tables
@@ -269,6 +318,12 @@ ALTER TABLE `tbl_customer`
   ADD UNIQUE KEY `customer_email` (`customer_email`);
 
 --
+-- Indexes for table `tbl_ratings`
+--
+ALTER TABLE `tbl_ratings`
+  ADD PRIMARY KEY (`rating_id`);
+
+--
 -- Indexes for table `tbl_services`
 --
 ALTER TABLE `tbl_services`
@@ -308,7 +363,7 @@ ALTER TABLE `tbl_blog`
 -- AUTO_INCREMENT for table `tbl_bookings`
 --
 ALTER TABLE `tbl_bookings`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_category`
@@ -320,13 +375,19 @@ ALTER TABLE `tbl_category`
 -- AUTO_INCREMENT for table `tbl_city`
 --
 ALTER TABLE `tbl_city`
-  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tbl_ratings`
+--
+ALTER TABLE `tbl_ratings`
+  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_services`
@@ -338,13 +399,13 @@ ALTER TABLE `tbl_services`
 -- AUTO_INCREMENT for table `tbl_slider`
 --
 ALTER TABLE `tbl_slider`
-  MODIFY `slider_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `slider_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_washing_point`
 --
 ALTER TABLE `tbl_washing_point`
-  MODIFY `washing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `washing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
