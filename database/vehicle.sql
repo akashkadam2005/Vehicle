@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2025 at 07:27 AM
+-- Generation Time: Feb 21, 2025 at 11:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -86,9 +86,9 @@ CREATE TABLE `tbl_bookings` (
 --
 
 INSERT INTO `tbl_bookings` (`booking_id`, `booking_category_id`, `booking_service_id`, `booking_customer_id`, `booking_time`, `booking_date`, `booking_washing_point`, `booking_message`, `booking_status`, `booking_price`, `booking_payment_method`, `booking_payment_status`) VALUES
-(1, 2, 8, 9, '03:25:00', '2025-02-22', '1', 'udya pasun ', 1, 600.00, '1', 1),
+(1, 2, 8, 9, '03:25:00', '2025-02-22', '1', 'udya pasun ', 2, 600.00, '1', 1),
 (2, 5, 5, 9, '04:51:00', '2025-02-28', '1', 'gjjh\n', 2, 2000.00, '1', 1),
-(3, 1, 1, 6, '05:56:00', '2025-02-14', '2', 'ddd', 1, 300.00, '1', 1);
+(3, 1, 1, 6, '05:56:00', '2025-02-14', '2', 'ddd', 2, 300.00, '1', 1);
 
 -- --------------------------------------------------------
 
@@ -162,6 +162,34 @@ INSERT INTO `tbl_customer` (`customer_id`, `customer_name`, `customer_email`, `c
 (6, 'Akash Kadam', 'akash@gmail.com', '$2y$10$Do3IU7gT7LKH9vFVc4wP6OTmPufngn1HBs.XRfoqEBbbJQjxNwVqi', '9322648858', '', 'bmt', 1, '2025-02-04 09:46:59'),
 (7, 'Sanket Jadhav ', 'sanket@gmail.com', '$2y$10$wfcX1sUnysWD4vxUucOJU.VoLC5vejZ8bTW9eB.XkHy92L31VZFsy', '988776677665', '1000015792.jpg', 'Phaltan', 1, '2025-02-14 05:54:08'),
 (9, 'ak', 'ak@gmail.com', '$2y$10$hSPTEpFolZzT4AO6cCZoTOv3CivaTLtPmQ/9LUkrwSX6PmUS4x74.', '97755755765', '1000016164.jpg', 'mmt', 1, '2025-02-14 05:59:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_employee`
+--
+
+CREATE TABLE `tbl_employee` (
+  `employee_id` int(11) NOT NULL,
+  `employee_name` varchar(255) NOT NULL,
+  `employee_email` varchar(150) NOT NULL,
+  `employee_password` varchar(255) NOT NULL,
+  `employee_phone` varchar(15) NOT NULL,
+  `employee_address` text NOT NULL,
+  `employee_position` varchar(100) NOT NULL,
+  `employee_salary` decimal(10,2) NOT NULL,
+  `employee_status` enum('1','2') DEFAULT '1',
+  `employee_image` varchar(255) DEFAULT NULL,
+  `employee_joined_at` datetime NOT NULL,
+  `employee_created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_employee`
+--
+
+INSERT INTO `tbl_employee` (`employee_id`, `employee_name`, `employee_email`, `employee_password`, `employee_phone`, `employee_address`, `employee_position`, `employee_salary`, `employee_status`, `employee_image`, `employee_joined_at`, `employee_created_at`) VALUES
+(1, 'Sanket Jadhav', 'sanket@gmail.com', '$2y$10$CumXx9XOEFLggiDW3IJ4YOIqC3WULCL9i.dXEQm.7QDcsCPC7FGEy', 'sanket@gmail.co', 'Test\r\n\r\n', 'Head', 890.00, '1', '', '0000-00-00 00:00:00', '2025-02-08 17:34:48');
 
 -- --------------------------------------------------------
 
@@ -318,6 +346,13 @@ ALTER TABLE `tbl_customer`
   ADD UNIQUE KEY `customer_email` (`customer_email`);
 
 --
+-- Indexes for table `tbl_employee`
+--
+ALTER TABLE `tbl_employee`
+  ADD PRIMARY KEY (`employee_id`),
+  ADD UNIQUE KEY `employee_email` (`employee_email`);
+
+--
 -- Indexes for table `tbl_ratings`
 --
 ALTER TABLE `tbl_ratings`
@@ -382,6 +417,12 @@ ALTER TABLE `tbl_city`
 --
 ALTER TABLE `tbl_customer`
   MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tbl_employee`
+--
+ALTER TABLE `tbl_employee`
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_ratings`
