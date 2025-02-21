@@ -74,7 +74,7 @@ if (isset($_GET['customer_id']) && !empty($_GET['customer_id'])) {
 function getStatusLabel($status) {
     $labels = [
         1 => "Pending",
-        2 => "Accepted",
+        2 => "InProgress",
         3 => "Completed",
         4 => "Rejected"
     ];
