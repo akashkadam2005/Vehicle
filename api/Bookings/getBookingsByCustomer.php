@@ -10,12 +10,14 @@ if (isset($_GET['customer_id']) && !empty($_GET['customer_id'])) {
 
     // Prepare the query to fetch all relevant fields, including washing location and city name
     $query = "SELECT 
+                    tbl_employee.*,
                 b.booking_id, 
                 c.customer_name, 
                 cat.category_name, 
                 s.service_name, 
                 b.booking_date, 
                 b.booking_time, 
+                b.assign_employee_id, 
                 w.washing_id, 
                 w.washing_location, 
                 w.washing_landmark, 
@@ -32,19 +34,21 @@ if (isset($_GET['customer_id']) && !empty($_GET['customer_id'])) {
               JOIN tbl_services s ON b.booking_service_id = s.service_id
               JOIN tbl_washing_point w ON b.booking_washing_point = w.washing_id
               LEFT JOIN tbl_city city ON w.washing_city_id = city.city_id
+              LEFT JOIN tbl_employee ON tbl_employee.employee_id = b.assign_employee_id 
               WHERE b.booking_customer_id = ?";
 
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "i", $customer_id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    
+
     // Check if there are any results
     if (mysqli_num_rows($result) > 0) {
         $bookings = [];
         while ($data = mysqli_fetch_assoc($result)) {
             $bookings[] = [
                 'booking_id' => $data['booking_id'],
+                'employee_name' => $data['employee_name'] ?? "",
                 'customer_name' => $data['customer_name'],
                 'category_name' => $data['category_name'],
                 'service_name' => $data['service_name'],
@@ -84,7 +88,8 @@ if (isset($_GET['customer_id']) && !empty($_GET['customer_id'])) {
 }
 
 // Helper function to get status label
-function getStatusLabel($status) {
+function getStatusLabel($status)
+{
     $labels = [
         1 => "Pending",
         2 => "InProgress",
@@ -93,4 +98,3 @@ function getStatusLabel($status) {
     ];
     return $labels[$status] ?? "Unknown";
 }
-?>
