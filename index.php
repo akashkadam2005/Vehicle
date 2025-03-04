@@ -82,7 +82,7 @@ $on_duty_employees = mysqli_fetch_assoc($on_duty_employee_result)['on_duty_emplo
         <!-- Services -->
         <div class="col-12 col-sm-6 col-md-3">
           <div class="info-box mb-3">
-            <a href="<?= $base_url . "services/" ?>" class="info-box-icon bg-warning elevation-1">
+            <a href="<?= $base_url . "service/" ?>" class="info-box-icon bg-warning elevation-1">
               <i class="fas fa-concierge-bell"></i>
             </a>
             <div class="info-box-content">
@@ -108,12 +108,12 @@ $on_duty_employees = mysqli_fetch_assoc($on_duty_employee_result)['on_duty_emplo
         <!-- Customer Feedbacks -->
         <div class="col-12 col-sm-6 col-md-3">
           <div class="info-box mb-3">
-            <a href="<?= $base_url . "review/" ?>" class="info-box-icon bg-info elevation-1">
-              <i class="fas fa-comments"></i>
+            <a href="<?= $base_url . "employee/" ?>" class="info-box-icon bg-info elevation-1">
+              <i class="fas fa-user-tie"></i>
             </a>
             <div class="info-box-content">
-              <span class="info-box-text">Customer Feedbacks</span>
-              <span class="info-box-number"><?= $reviews_count ?></span>
+              <span class="info-box-text">Available Employees</span>
+              <span class="info-box-number"><?= $available_employees ?></span>
             </div>
           </div>
         </div>
