@@ -82,7 +82,7 @@ include "../component/sidebar.php";
                             <td><?= $data["employee_name"] ?></td>
                             <td><?= $data["employee_email"] ?></td>
                             <td><?= $data["employee_phone"] ?></td> 
-                            <td><?= $data["employee_status"] == 1 ? 'Active' : 'Inactive' ?></td>
+                            <td><?= $data["employee_status"] == 1 ? '<span class="text-success font-weight-bold">Available</span>' : '<span class="text-danger font-weight-bold">On-duty</span>' ?></td>
                             <td>
                                 <a href="view.php?employee_id=<?= $data["employee_id"] ?>" class="btn btn-sm shadow btn-success">
                                     <i class="fa fa-eye"></i>

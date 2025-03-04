@@ -58,6 +58,7 @@ include "../component/sidebar.php";
                     // Fetch data with JOINs
                     $query = "SELECT 
                                 b.booking_id, 
+                                tbl_employee.*,
                                 c.customer_name, 
                                 cat.category_name, 
                                 s.service_name, 
@@ -65,11 +66,13 @@ include "../component/sidebar.php";
                                 b.booking_time, 
                                 b.booking_price, 
                                 b.booking_payment_status, 
+                                b.booking_employee_id,
                                 b.booking_status 
                               FROM tbl_bookings b
                               JOIN tbl_customer c ON b.booking_customer_id = c.customer_id
                               JOIN tbl_category cat ON b.booking_category_id = cat.category_id
                               JOIN tbl_services s ON b.booking_service_id = s.service_id
+                              LEFT JOIN tbl_employee ON tbl_employee.employee_id = b.booking_employee_id
                               $whereClause";
 
                     $result = mysqli_query($conn, $query);

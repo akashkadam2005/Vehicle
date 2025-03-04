@@ -160,7 +160,7 @@ $on_duty_employees = mysqli_fetch_assoc($on_duty_employee_result)['on_duty_emplo
         <!-- Cancelled Bookings -->
         <div class="col-12 col-sm-6 col-md-3">
           <div class="info-box mb-3">
-            <a href="<?= $base_url . "bookings/" ?>" class="info-box-icon bg-danger elevation-1">
+            <a href="<?= $base_url . "bookings/index.php?booking_status=4" ?>" class="info-box-icon bg-danger elevation-1">
               <i class="fas fa-times-circle"></i>
             </a>
             <div class="info-box-content">
