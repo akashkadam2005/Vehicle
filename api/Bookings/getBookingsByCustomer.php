@@ -17,7 +17,7 @@ if (isset($_GET['customer_id']) && !empty($_GET['customer_id'])) {
                 s.service_name, 
                 b.booking_date, 
                 b.booking_time, 
-                b.assign_employee_id, 
+                b.booking_employee_id, 
                 w.washing_id, 
                 w.washing_location, 
                 w.washing_landmark, 
@@ -34,7 +34,7 @@ if (isset($_GET['customer_id']) && !empty($_GET['customer_id'])) {
               JOIN tbl_services s ON b.booking_service_id = s.service_id
               JOIN tbl_washing_point w ON b.booking_washing_point = w.washing_id
               LEFT JOIN tbl_city city ON w.washing_city_id = city.city_id
-              LEFT JOIN tbl_employee ON tbl_employee.employee_id = b.assign_employee_id 
+              LEFT JOIN tbl_employee ON tbl_employee.employee_id = b.booking_employee_id 
               WHERE b.booking_customer_id = ?";
 
     $stmt = mysqli_prepare($conn, $query);

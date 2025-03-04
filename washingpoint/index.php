@@ -38,6 +38,31 @@ include "../component/sidebar.php";
         </div>
         
         <div class="card-body">
+        <?php
+            if (isset($_SESSION["success"])) {
+            ?>
+                <div class="font-weight-bold alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h5 class="font-weight-bold "><i class="icon fas fa-check"></i> Success!</h5>
+                    <?= $_SESSION["success"] ?>
+                </div>
+            <?php
+                unset($_SESSION["success"]);
+            }
+            ?>
+
+            <?php
+            if (isset($_SESSION["error"])) {
+            ?>
+                <div class="font-weight-bold alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h5 class="font-weight-bold "><i class="fas fa-exclamation-circle"></i> Warning!</h5>
+                    <?= $_SESSION["error"] ?>
+                </div>
+            <?php
+                unset($_SESSION["error"]);
+            }
+            ?>
             <div class="table-responsive">
                 <table class="table">
                     <tr>

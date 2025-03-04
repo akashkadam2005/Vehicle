@@ -16,10 +16,10 @@ include "../component/sidebar.php";
                         Booking Status
                         <select name="booking_status" class="form-control font-weight-bold">
                             <option value="">All</option>
-                            <option value="1">Pending</option>
-                            <option value="2">Accepted</option>
-                            <option value="3">Completed</option>
-                            <option value="4">Rejected</option>
+                            <option value="1" <?= isset($_GET["booking_status"]) && $_GET["booking_status"] == 1  ? "selected" : " "?>>Pending</option>
+                            <option value="2" <?= isset($_GET["booking_status"]) && $_GET["booking_status"] == 2  ? "selected" : " "?>>Accepted</option>
+                            <option value="3" <?= isset($_GET["booking_status"]) && $_GET["booking_status"] == 3  ? "selected" : " "?>>Completed</option>
+                            <option value="4" <?= isset($_GET["booking_status"]) && $_GET["booking_status"] == 4  ? "selected" : " "?>>Rejected</option>
                         </select>
                     </div>
                     <div class="col-1 font-weight-bold">
@@ -43,7 +43,7 @@ include "../component/sidebar.php";
                         <th>Date</th>
                         <th>Time</th>
                         <th>Price</th>
-                        <th>Payment Status</th>
+                        <th>Employee</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -85,10 +85,8 @@ include "../component/sidebar.php";
                             <td><?= date("d M Y", strtotime($data["booking_date"])) ?></td>
                             <td><?= date("h:i A", strtotime($data["booking_time"])) ?></td>
                             <td>₹<?= number_format($data["booking_price"], 2) ?></td>
-                            <td>
-                                <span class="badge badge-<?= $data["booking_payment_status"] == 2 ? 'success' : 'warning' ?>">
-                                    <?= $data["booking_payment_status"] == 2 ? 'Paid' : 'Pending' ?>
-                                </span>
+                            <td class="font-weight-bold">
+                                <?= $data["employee_name"] ?? "<span class='text-danger'> Not Assigned </span>" ?>
                             </td>
                             <td>
                                 <span class="badge badge-<?= getStatusBadge($data["booking_status"]) ?>">
@@ -98,10 +96,7 @@ include "../component/sidebar.php";
                             <td>
                                 <a href="view.php?booking_id=<?= $data['booking_id'] ?>" class="btn btn-sm shadow btn-primary">
                                     <i class="fa fa-eye"></i>
-                                </a>
-                                <a href="edit.php?booking_id=<?= $data['booking_id'] ?>" class="btn btn-sm shadow btn-info">
-                                    <i class="fa fa-pen"></i>
-                                </a>
+                                </a> 
                                 <a href="delete.php?booking_id=<?= $data['booking_id'] ?>"
                                     onclick="return confirm('Are you sure you want to delete this booking?')"
                                     class="btn btn-sm shadow btn-danger">

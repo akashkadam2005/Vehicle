@@ -5,17 +5,18 @@ include "../component/sidebar.php";
 
 $booking_id = isset($_GET['booking_id']) ? $_GET['booking_id'] : null;
 
-// if (!$booking_id) {
-//     // $_SESSION['error'] = 'Booking ID is missing!';
-//     // header("Location: index.php");
-//     exit;
-// }
+if (!$booking_id) {
+    $_SESSION['error'] = 'Booking ID is missing!';
+    header("Location: index.php");
+    exit;
+}
 
 // Fetch booking details
 $query = "SELECT * FROM tbl_bookings
 INNER JOIN tbl_customer ON tbl_customer.customer_id = tbl_bookings.booking_customer_id
 INNER JOIN tbl_category ON tbl_category.category_id = tbl_bookings.booking_category_id
 INNER JOIN tbl_services ON tbl_services.service_id = tbl_bookings.booking_service_id
+LEFT JOIN tbl_employee ON tbl_employee.employee_id = tbl_bookings.booking_employee_id
 WHERE booking_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param('i', $booking_id);
@@ -29,14 +30,19 @@ if (!$booking) {
     exit;
 }
 
-// Update booking status
+// Fetch Employees for Assignment
+$employee_query = "SELECT * FROM tbl_employee";
+$employee_result = $conn->query($employee_query);
+
+// Update booking status and assigned employee
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $payment_status = $_POST['payment_status'];
     $booking_status = $_POST['booking_status'];
+    $booking_employee_id = $_POST['booking_employee_id']; // New field
 
-    $update_query = "UPDATE tbl_bookings SET booking_payment_status = ?, booking_status = ?, updated_at = NOW() WHERE booking_id = ?";
+    $update_query = "UPDATE tbl_bookings SET booking_payment_status = ?, booking_status = ?, booking_employee_id = ? WHERE booking_id = ?";
     $update_stmt = $conn->prepare($update_query);
-    $update_stmt->bind_param('sii', $payment_status, $booking_status, $booking_id);
+    $update_stmt->bind_param('siii', $payment_status, $booking_status, $booking_employee_id, $booking_id);
 
     if ($update_stmt->execute()) {
         $_SESSION['success'] = 'Booking updated successfully!';
@@ -96,13 +102,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <th>Service</th>
                             <td><?= htmlspecialchars($booking['service_name']) ?></td>
                         </tr>
+                        <tr>
+                            <th>Assigned Employee</th>
+                            <td>
+                                <?= $booking['employee_name'] ? htmlspecialchars($booking['employee_name']) : "<span class='text-muted'>Not Assigned</span>" ?>
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <div class="col-md-6">
                     <table class="table table-bordered">
                         <tr>
                             <th>Payment Status</th>
-                            <td><?= htmlspecialchars($booking['booking_payment_status']) == 1 ? "<span class='text-success font-weight-bold'>Paid</span>" : "<span class='text-danger font-weight-bold'>Unpaid</span>" ?></td>
+                            <td><?= htmlspecialchars($booking['booking_payment_status']) == 2 ? "<span class='text-success font-weight-bold'>Paid</span>" : "<span class='text-danger font-weight-bold'>Unpaid</span>" ?></td>
                         </tr>
                         <tr>
                             <th>Booking Status</th>
@@ -112,26 +124,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <th>Created At</th>
                             <td><?= date("d/m/Y h:i A", strtotime($booking['created_at'])) ?></td>
                         </tr>
-                        <!-- <tr>
-                            <th>Updated At</th>
-                            <td><?= date("d/m/Y h:i A", strtotime($booking['updated_at'])) ?></td>
-                        </tr> -->
+                        <tr>
+                            <th>Assigned Employee</th>
+                            <td><?= $booking["employee_name"] ?? "Not Assigned" ?></td>
+                        </tr>
                     </table>
                 </div>
             </div>
 
             <form method="POST" class="p-3 bg-light rounded shadow-sm">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="payment_status">Payment Status</label>
                             <select name="payment_status" id="payment_status" class="form-control">
                                 <option value="1" <?= $booking['booking_payment_status'] == 1 ? 'selected' : '' ?>>Unpaid</option>
-                                <option value="2" <?= $booking['booking_payment_status'] == 1 ? 'selected' : '' ?>>Paid</option>
+                                <option value="2" <?= $booking['booking_payment_status'] == 2 ? 'selected' : '' ?>>Paid</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="booking_status">Booking Status</label>
                             <select name="booking_status" class="form-control">
@@ -139,6 +151,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <option value="2" <?= $booking["booking_status"] == "2" ? "selected" : "" ?>>Accepted</option>
                                 <option value="3" <?= $booking["booking_status"] == "3" ? "selected" : "" ?>>Completed</option>
                                 <option value="4" <?= $booking["booking_status"] == "4" ? "selected" : "" ?>>Rejected</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="booking_employee_id">Assign Employee</label>
+                            <select name="booking_employee_id" id="booking_employee_id" class="form-control">
+                                <option value="">Select Employee</option>
+                                <?php while ($employee = $employee_result->fetch_assoc()) { ?>
+                                    <option value="<?= $employee['employee_id'] ?>" <?= $booking['booking_employee_id'] == $employee['employee_id'] ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($employee['employee_name']) ?>
+                                    </option>
+                                <?php } ?>
                             </select>
                         </div>
                     </div>
